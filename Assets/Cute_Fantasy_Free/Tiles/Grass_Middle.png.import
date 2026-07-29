@@ -2,22 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://llxuwfj84oe7"
-path="res://.godot/imported/Walk.png-44cfd5f20686f1d10ca760d102c69afa.ctex"
+uid="uid://5ovl3ywhr7f4"
+path="res://.godot/imported/Grass_Middle.png-032650caeb05f782861d879db3cc52e2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Actor/Character/MaskFrog/SeparateAnim/Walk.png"
-dest_files=["res://.godot/imported/Walk.png-44cfd5f20686f1d10ca760d102c69afa.ctex"]
+source_file="res://Assets/Cute_Fantasy_Free/Tiles/Grass_Middle.png"
+dest_files=["res://.godot/imported/Grass_Middle.png-032650caeb05f782861d879db3cc52e2.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
-compress/lossy_quality=1.0
+compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1

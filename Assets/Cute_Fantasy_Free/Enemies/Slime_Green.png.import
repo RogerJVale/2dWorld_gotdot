@@ -2,22 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://llxuwfj84oe7"
-path="res://.godot/imported/Walk.png-44cfd5f20686f1d10ca760d102c69afa.ctex"
+uid="uid://0d5o6ato3sbi"
+path="res://.godot/imported/Slime_Green.png-db4c7c278d9ab1c60102a837dff95ea6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Actor/Character/MaskFrog/SeparateAnim/Walk.png"
-dest_files=["res://.godot/imported/Walk.png-44cfd5f20686f1d10ca760d102c69afa.ctex"]
+source_file="res://Assets/Cute_Fantasy_Free/Enemies/Slime_Green.png"
+dest_files=["res://.godot/imported/Slime_Green.png-db4c7c278d9ab1c60102a837dff95ea6.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
-compress/lossy_quality=1.0
+compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1

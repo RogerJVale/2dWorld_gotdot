@@ -2,22 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://llxuwfj84oe7"
-path="res://.godot/imported/Walk.png-44cfd5f20686f1d10ca760d102c69afa.ctex"
+uid="uid://dqhfebwjalsa5"
+path="res://.godot/imported/Chest.png-5cc35200ba422dcfa167226b2e8e1e45.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Actor/Character/MaskFrog/SeparateAnim/Walk.png"
-dest_files=["res://.godot/imported/Walk.png-44cfd5f20686f1d10ca760d102c69afa.ctex"]
+source_file="res://Assets/Cute_Fantasy_Free/Outdoor decoration/Chest.png"
+dest_files=["res://.godot/imported/Chest.png-5cc35200ba422dcfa167226b2e8e1e45.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
-compress/lossy_quality=1.0
+compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
