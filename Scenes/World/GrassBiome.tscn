@@ -2,10 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d12i7cp5txwb2" path="res://Scripts/Tools/tilemap_layer_creator.gd" id="1_sny84"]
 [ext_resource type="TileSet" uid="uid://dog44q58c1cvv" path="res://Assets/Cute_Fantasy_Free/Tiles/main_tileset.tres" id="2_o20vb"]
-[ext_resource type="Script" uid="uid://bpudlyia8gk0t" path="res://Scripts/Utils/door_area.gd" id="3_6duby"]
-[ext_resource type="PackedScene" uid="uid://cw6mm2duogeuf" path="res://Scenes/World/DesertBiome.tscn" id="4_e8w1d"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e8w1d"]
+[ext_resource type="PackedScene" uid="uid://c66x0vxpu2kud" path="res://Scenes/World/TeleportArea.tscn" id="3_6duby"]
 
 [node name="Grass Biome" type="Node2D" unique_id=481474088]
 script = ExtResource("1_sny84")
@@ -31,10 +28,8 @@ z_index = 30
 tile_map_data = PackedByteArray("AAAOAAsAAgATAAAAAAAOAAwAAgATAAEAAAAPAAsAAgAUAAAAAAAPAAwAAgAUAAEAAAAQAAsAAgAVAAAAAAAQAAwAAgAVAAEAAAARAAsAAgAWAAAAAAARAAwAAgAWAAEAAAA=")
 tile_set = ExtResource("2_o20vb")
 
-[node name="DoorArea" type="Area2D" parent="." unique_id=1683554508]
+[node name="TeleportArea" parent="." unique_id=951206098 instance=ExtResource("3_6duby")]
 position = Vector2(264, 215)
-script = ExtResource("3_6duby")
-scene = ExtResource("4_e8w1d")
+target_biome = "ForestBiome"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorArea" unique_id=27995491]
-shape = SubResource("RectangleShape2D_e8w1d")
+[editable path="TeleportArea"]

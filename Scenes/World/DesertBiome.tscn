@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d12i7cp5txwb2" path="res://Scripts/Tools/tilemap_layer_creator.gd" id="1_etge8"]
 [ext_resource type="TileSet" uid="uid://dog44q58c1cvv" path="res://Assets/Cute_Fantasy_Free/Tiles/main_tileset.tres" id="2_sp1x5"]
+[ext_resource type="PackedScene" uid="uid://c66x0vxpu2kud" path="res://Scenes/World/TeleportArea.tscn" id="3_tpkj3"]
 
 [sub_resource type="TileSet" id="TileSet_1nte2"]
 
@@ -17,12 +18,26 @@ tile_set = ExtResource("2_sp1x5")
 
 [node name="InFront" type="TileMapLayer" parent="." unique_id=375064863]
 z_index = 10
-tile_set = SubResource("TileSet_1nte2")
+tile_map_data = PackedByteArray("AAAOAAoAAgAMAAIAAAAPAAoAAgANAAIAAAAQAAoAAgAOAAIAAAARAAoAAgAPAAIAAAA=")
+tile_set = ExtResource("2_sp1x5")
 
 [node name="Collision" type="TileMapLayer" parent="." unique_id=568295620]
 z_index = 20
 tile_set = SubResource("TileSet_1nte2")
 
-[node name="AbovePlayer" type="TileMapLayer" parent="." unique_id=515058980]
+[node name="Behind" type="TileMapLayer" parent="." unique_id=515058980]
 z_index = 30
-tile_set = SubResource("TileSet_1nte2")
+tile_map_data = PackedByteArray("AAAOAAgAAgAMAAAAAAAOAAkAAgAMAAEAAAAPAAgAAgANAAAAAAAPAAkAAgANAAEAAAAQAAgAAgAOAAAAAAAQAAkAAgAOAAEAAAARAAgAAgAPAAAAAAARAAkAAgAPAAEAAAA=")
+tile_set = ExtResource("2_sp1x5")
+
+[node name="TeleportArea" parent="." unique_id=951206098 instance=ExtResource("3_tpkj3")]
+position = Vector2(247, 168)
+target_biome = "GrassBiome"
+
+[node name="LandingPosition" parent="TeleportArea" index="1" unique_id=1750212894]
+offset_left = 40.0
+offset_top = 7.0
+offset_right = 80.0
+offset_bottom = 47.0
+
+[editable path="TeleportArea"]

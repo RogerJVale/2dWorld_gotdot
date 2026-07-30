@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://jggiykxo3qne"]
+
+[ext_resource type="Script" uid="uid://bdle63fh2fhje" path="res://Scripts/UI/mini_dialog.gd" id="1_x0kmm"]
+[ext_resource type="Texture2D" uid="uid://cxafcmcbtgul6" path="res://Assets/UI/Theme/Theme Wood/button_pressed.png" id="2_147vn"]
+
+[node name="MiniDialog" type="CanvasLayer" unique_id=1138957328]
+script = ExtResource("1_x0kmm")
+background_texture = ExtResource("2_147vn")
+
+[node name="Panel" type="Panel" parent="." unique_id=484705007]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="Panel" unique_id=374340661]
+layout_mode = 0
+offset_right = 75.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 24
+text = "Test Text "
