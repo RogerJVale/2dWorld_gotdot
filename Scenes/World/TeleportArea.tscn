@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c66x0vxpu2kud"]
 
-[ext_resource type="Script" uid="uid://bpudlyia8gk0t" path="res://Scripts/World/teleport_area.gd" id="1_qidbm"]
+[ext_resource type="Script" uid="uid://bpudlyia8gk0t" path="res://Scripts/Player/teleport_area.gd" id="1_qidbm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e8w1d"]
 

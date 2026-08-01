@@ -43,6 +43,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+
 #region  Movement
 func process_movement() -> void:
 
@@ -53,6 +54,7 @@ func process_movement() -> void:
 
 		if direction != Vector2.ZERO:
 			last_direction = direction
+		display_tile_data()
 	else:
 		# Platformer movement (NO up/down input)
 		var x_input := Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -69,8 +71,6 @@ func process_jump():
 func process_gravity(delta: float):
 	#var gravity = lerp(gravity,max_gravity, 12.0 * delta)
 	velocity.y += _gravity * delta
-
-
 
 func process_animation():
 	if velocity != Vector2.ZERO:
@@ -100,3 +100,8 @@ func enable_topdownControls():
 	print("Seeting up for topdown")
 
 	is_td = true
+
+func display_tile_data():
+	if GameManager.getTileData(position):
+		var data: String = GameManager.getTileData(position)
+		#print ("Tile data " + data)

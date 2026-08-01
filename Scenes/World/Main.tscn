@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://3tr1ayr0oga7"]
 
 [ext_resource type="PackedScene" uid="uid://4pqund3nukl7" path="res://Scenes/Player/Player.tscn" id="2_4narx"]
+[ext_resource type="PackedScene" uid="uid://cjnuhft0fpd1u" path="res://Scenes/UI/hotbar.tscn" id="3_4narx"]
 [ext_resource type="PackedScene" uid="uid://jggiykxo3qne" path="res://Scenes/UI/mini_dialog.tscn" id="4_jl77m"]
 
 [node name="Main" type="Node2D" unique_id=837822571]
@@ -11,3 +12,18 @@ position = Vector2(288, 184)
 [node name="MiniDialog" parent="." unique_id=1138957328 instance=ExtResource("4_jl77m")]
 offset = Vector2(500, 250)
 transform = Transform2D(1, 0, 0, 1, 500, 250)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1798767688]
+
+[node name="Hotbar" parent="CanvasLayer" unique_id=305105236 instance=ExtResource("3_4narx")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0

@@ -34,10 +34,4 @@ tile_set = ExtResource("2_sp1x5")
 position = Vector2(247, 168)
 target_biome = "GrassBiome"
 
-[node name="LandingPosition" parent="TeleportArea" index="1" unique_id=1750212894]
-offset_left = 40.0
-offset_top = 7.0
-offset_right = 80.0
-offset_bottom = 47.0
-
 [editable path="TeleportArea"]
