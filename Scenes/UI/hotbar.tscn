@@ -1,23 +1,18 @@
 [gd_scene format=3 uid="uid://cjnuhft0fpd1u"]
 
-[ext_resource type="Texture2D" uid="uid://brjdmldibfra6" path="res://Assets/Items/AllPreview.png" id="1_26udg"]
-[ext_resource type="Resource" uid="uid://p0tgsanjb0ra" path="res://Scripts/Inventory/Items/shovel.tres" id="2_kjkqa"]
-[ext_resource type="Script" uid="uid://cqes062654sb" path="res://Scripts/Inventory/slot.gd" id="2_sk345"]
+[ext_resource type="Script" uid="uid://je5v4717o7xq" path="res://Scripts/UI/hotbar.gd" id="1_sk345"]
+[ext_resource type="PackedScene" uid="uid://b7e4uqfvkssy7" path="res://Scenes/UI/slot.tscn" id="1_trnr3"]
+[ext_resource type="Resource" uid="uid://dn2r3kn3i8kre" path="res://Scripts/Inventory/Items/pick.tres" id="4_cxdlu"]
 [ext_resource type="Resource" uid="uid://bnrjyrhcckbft" path="res://Scripts/Inventory/Items/axe.tres" id="4_ss4vx"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uyic3"]
-atlas = ExtResource("1_26udg")
-region = Rect2(129.32579, 811.0823, 68.62669, 66.03088)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4l1ip"]
-atlas = ExtResource("1_26udg")
-region = Rect2(329.5, 811, 73, 66)
+[ext_resource type="Resource" uid="uid://p0tgsanjb0ra" path="res://Scripts/Inventory/Items/shovel.tres" id="5_cxdlu"]
+[ext_resource type="Resource" uid="uid://dql24mqjulugp" path="res://Scripts/Inventory/Items/watering_can.tres" id="5_m86u8"]
 
 [node name="Hotbar" type="Control" unique_id=305105236]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_sk345")
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=2111642855]
 layout_mode = 1
@@ -26,21 +21,25 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
+offset_left = -168.0
+offset_top = -80.0
+offset_right = 168.0
 grow_horizontal = 2
 grow_vertical = 0
-columns = 10
+columns = 6
 
-[node name="Slor 1" type="TextureRect" parent="GridContainer" unique_id=231905288]
+[node name="slot" parent="GridContainer" unique_id=1112365762 instance=ExtResource("1_trnr3")]
 layout_mode = 2
-texture = SubResource("AtlasTexture_uyic3")
-script = ExtResource("2_sk345")
-item = ExtResource("2_kjkqa")
+item = ExtResource("4_cxdlu")
 
-[node name="Slor 2" type="TextureRect" parent="GridContainer" unique_id=1117160850]
+[node name="slot2" parent="GridContainer" unique_id=1344812167 instance=ExtResource("1_trnr3")]
 layout_mode = 2
-texture = SubResource("AtlasTexture_4l1ip")
-script = ExtResource("2_sk345")
 item = ExtResource("4_ss4vx")
+
+[node name="slot3" parent="GridContainer" unique_id=1921612576 instance=ExtResource("1_trnr3")]
+layout_mode = 2
+item = ExtResource("5_cxdlu")
+
+[node name="slot4" parent="GridContainer" unique_id=192334335 instance=ExtResource("1_trnr3")]
+layout_mode = 2
+item = ExtResource("5_m86u8")

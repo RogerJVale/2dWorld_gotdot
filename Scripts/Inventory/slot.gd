@@ -1,7 +1,15 @@
 @tool
-extends TextureRect
+class_name Slot
+extends ColorRect
 
-@export var item : Item:
-	set(item_to_slot):
-		item = item_to_slot
-		texture = item.icon
+@onready var slot: TextureRect = get_node("slot")
+
+@export var item: Item:
+	set(value):
+		item = value
+		if slot:
+			slot.texture = item.icon if item else null
+
+func _ready():
+	if slot and item:
+		slot.texture = item.icon

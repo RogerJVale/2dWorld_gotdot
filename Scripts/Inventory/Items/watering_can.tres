@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://dql24mqjulugp"]
+
+[ext_resource type="Script" uid="uid://bibxsjhtbuxfc" path="res://Scripts/Inventory/item.gd" id="1_ipsly"]
+[ext_resource type="Texture2D" uid="uid://brjdmldibfra6" path="res://Assets/Items/AllPreview.png" id="1_n62p6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n62p6"]
+atlas = ExtResource("1_n62p6")
+region = Rect2(262.2138, 742.60693, 71.453, 68.85474)
+
+[resource]
+script = ExtResource("1_ipsly")
+item_id = "watering_can"
+name = "Watering Can"
+icon = SubResource("AtlasTexture_n62p6")
+metadata/_custom_type_script = "uid://bibxsjhtbuxfc"

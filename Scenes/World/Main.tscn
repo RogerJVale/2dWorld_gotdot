@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://4pqund3nukl7" path="res://Scenes/Player/Player.tscn" id="2_4narx"]
 [ext_resource type="PackedScene" uid="uid://cjnuhft0fpd1u" path="res://Scenes/UI/hotbar.tscn" id="3_4narx"]
+[ext_resource type="Script" uid="uid://je5v4717o7xq" path="res://Scripts/UI/hotbar.gd" id="4_bm7dg"]
 [ext_resource type="PackedScene" uid="uid://jggiykxo3qne" path="res://Scenes/UI/mini_dialog.tscn" id="4_jl77m"]
 
 [node name="Main" type="Node2D" unique_id=837822571]
@@ -27,3 +28,4 @@ offset_right = 20.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("4_bm7dg")
