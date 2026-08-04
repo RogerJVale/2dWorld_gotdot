@@ -1,8 +1,8 @@
 @tool
 class_name Slot
-extends ColorRect
+extends Panel
 
-@onready var slot: TextureRect = get_node("slot")
+@onready var slot: TextureRect = get_node("Icon")
 
 @export var item: Item:
 	set(value):
@@ -13,3 +13,9 @@ extends ColorRect
 func _ready():
 	if slot and item:
 		slot.texture = item.icon
+
+func clear_highlight():
+	$Highlight.modulate = Color.WHITE
+
+func highlight():
+	$Highlight.modulate = Color.YELLOW

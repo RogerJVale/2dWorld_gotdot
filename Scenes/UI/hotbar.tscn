@@ -30,11 +30,11 @@ columns = 6
 
 [node name="slot" parent="GridContainer" unique_id=1112365762 instance=ExtResource("1_trnr3")]
 layout_mode = 2
-item = ExtResource("4_cxdlu")
+item = ExtResource("4_ss4vx")
 
 [node name="slot2" parent="GridContainer" unique_id=1344812167 instance=ExtResource("1_trnr3")]
 layout_mode = 2
-item = ExtResource("4_ss4vx")
+item = ExtResource("4_cxdlu")
 
 [node name="slot3" parent="GridContainer" unique_id=1921612576 instance=ExtResource("1_trnr3")]
 layout_mode = 2

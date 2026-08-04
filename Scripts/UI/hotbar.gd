@@ -27,6 +27,7 @@ func _ready() -> void:
 func update_current_item():
 	current_item = slots[current_slot].item
 	highlight_slot(current_slot)
+	GameManager.equipped_item = current_item
 
 	if current_item:
 		print("Selected:", current_item.name)
@@ -35,6 +36,6 @@ func update_current_item():
 
 func highlight_slot(index):
 	for i in slots.size():
-		slots[i].modulate = Color.WHITE
+		slots[i].clear_highlight()
 
-	slots[index].modulate = Color.YELLOW
+	slots[index].highlight()

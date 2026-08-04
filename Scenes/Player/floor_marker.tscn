@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cdsmmjoffa35g"]
+
+[ext_resource type="Texture2D" uid="uid://dch66coa8qf5t" path="res://Assets/Sprites/floorMarker.png" id="1_5lyrj"]
+[ext_resource type="Script" uid="uid://d1pkpxag7rswb" path="res://Scripts/Player/floor_marker.gd" id="1_48x2i"]
+
+[node name="FloorMarker" type="Node2D" unique_id=1462664468 node_paths=PackedStringArray("marker")]
+z_index = 99
+script = ExtResource("1_48x2i")
+marker = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1751659866]
+texture = ExtResource("1_5lyrj")

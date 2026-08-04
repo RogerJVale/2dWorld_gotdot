@@ -3,18 +3,30 @@ extends Node2D
 
 @export var start_scene : PackedScene
 
+
+var minutes_per_second := 10.0  # how fast time moves
+var day := 0
+var minutes : float = 0
+
 var _player: Movement
+var equipped_item: Item
 
 func _ready() -> void:
-	pass
+	process_mode = Node.PROCESS_MODE_ALWAYS
 func _process(delta: float) -> void:
 
-	if (Input.is_action_just_pressed("place_tile")):
-		change_tile(_player.position)
+	process_time(delta)
+
+
+	#handle the tool input
+	#if (Input.is_action_just_pressed("place_tile")):
+		#if equipped_item.name == "Shovel":
+			#change_tile(_player.position)
 ##
 ## PLAYER UTILS
 ##
 func register_player(player: CharacterBody2D):
+	print("Player registered")
 	_player = player
 	SceneMagement.load_biome("GrassBiome");
 
@@ -45,7 +57,7 @@ func getTileData(pos:Vector2):
 func change_map_cell_no_save(cell: Vector2i):
 	var tilemap: TileMapLayer = SceneMagement.current_biome.get_node("Ground");
 	#auto tile
-	print(SceneMagement.current_biome.name)
+	#print(Game Manager: SceneMagement.current_biome.name)
 	tilemap.set_cells_terrain_connect([cell], 0, 1, false)
 
 func change_tile(pos: Vector2):
@@ -79,3 +91,54 @@ func change_tile(pos: Vector2):
 			#tilemap.set_cell(cell,1,tile_atlas_position)
 		#else:
 			#print("Did not find tile map")
+##########################
+## Time Functions
+##########################
+#region Time Functions
+func process_time(delta : float):
+
+	minutes += minutes_per_second * delta
+
+
+	if minutes >= 1440:
+		day += 1
+		minutes = 0
+
+func get_hour() -> int:
+	return int(minutes / 60)
+
+func get_minute() -> int:
+	return int(minutes) % 60
+
+func get_day_progress() -> float:
+	return minutes / 1440.0
+
+func get_time_string() -> String:
+	var h = get_hour()
+	var m = get_minute()
+
+	toggle_lights()
+
+	return "%02d:%02d" % [h, m]
+#endregion
+#########################
+## Lighting Controls
+#########################
+#region Lighting Controls
+var is_night: bool = true
+func toggle_lights():
+	var h := get_hour()
+
+	# Night: 18 → 24 OR 0 → 6
+	if (h >= 18 or h < 6):
+		if !is_night:
+			is_night = true
+			SceneMagement.current_biome.get_node_or_null("BiomeData").toggle_lights(true)
+			print("lighting on")
+	else:
+		# Day: 6 → 18
+		if is_night:
+			is_night= false
+			SceneMagement.current_biome.get_node_or_null("BiomeData").toggle_lights(false)
+			print("lighting off")
+#endregion
