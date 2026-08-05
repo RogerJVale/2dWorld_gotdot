@@ -7,6 +7,7 @@ func _ready():
 	body_exited.connect(_on_body_exited)
 
 func _on_body_entered(body: Node2D) -> void:
+	print(body.name , " Entered the teleporter")
 	if body.name == "Player":
 		var dialog = get_tree().current_scene.get_node("MiniDialog")
 		dialog.show_dialog(

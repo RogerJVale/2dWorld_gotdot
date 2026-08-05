@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://4pqund3nukl7"]
 
 [ext_resource type="Texture2D" uid="uid://dlsup3u1qylw4" path="res://Assets/Actor/Character/MaskFrog/SeparateAnim/Idle.png" id="1_0e48y"]
-[ext_resource type="Script" uid="uid://mitjyb00bjcf" path="res://Scripts/Player/Movement.gd" id="1_epypp"]
+[ext_resource type="Script" uid="uid://mitjyb00bjcf" path="res://Scripts/Player/Player.gd" id="1_epypp"]
 [ext_resource type="Texture2D" uid="uid://llxuwfj84oe7" path="res://Assets/Actor/Character/MaskFrog/SeparateAnim/Walk.png" id="2_epypp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0hol4"]
@@ -200,8 +200,8 @@ script = ExtResource("1_epypp")
 sprite_frames = SubResource("SpriteFrames_gxwvi")
 animation = &"idle_up"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1291449587]
-shape = SubResource("CapsuleShape2D_j4bll")
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=449589819]
 zoom = Vector2(3.85, 3.85)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=493789983]
+shape = SubResource("CapsuleShape2D_j4bll")

@@ -2,6 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://dch66coa8qf5t" path="res://Assets/Sprites/floorMarker.png" id="1_5lyrj"]
 [ext_resource type="Script" uid="uid://d1pkpxag7rswb" path="res://Scripts/Player/floor_marker.gd" id="1_48x2i"]
+[ext_resource type="PackedScene" uid="uid://cbwyownrsae2p" path="res://Scenes/Weapons/watering_can.tscn" id="3_3b1dd"]
+[ext_resource type="PackedScene" uid="uid://rjgahp2exsm0" path="res://Scenes/Weapons/axe_swing.tscn" id="3_45rsx"]
+[ext_resource type="PackedScene" uid="uid://bbtl034ebb2v5" path="res://Scenes/Weapons/shovel.tscn" id="4_isuu6"]
 
 [node name="FloorMarker" type="Node2D" unique_id=1462664468 node_paths=PackedStringArray("marker")]
 z_index = 99
@@ -10,3 +13,12 @@ marker = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1751659866]
 texture = ExtResource("1_5lyrj")
+
+[node name="WateringCan" parent="Sprite2D" unique_id=1887436874 instance=ExtResource("3_3b1dd")]
+visible = false
+
+[node name="AxeSwing" parent="Sprite2D" unique_id=2081854247 instance=ExtResource("3_45rsx")]
+visible = false
+
+[node name="Shovel" parent="Sprite2D" unique_id=1763945035 instance=ExtResource("4_isuu6")]
+visible = false

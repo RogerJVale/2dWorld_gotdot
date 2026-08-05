@@ -2,10 +2,6 @@
 
 [ext_resource type="Script" uid="uid://je5v4717o7xq" path="res://Scripts/UI/hotbar.gd" id="1_sk345"]
 [ext_resource type="PackedScene" uid="uid://b7e4uqfvkssy7" path="res://Scenes/UI/slot.tscn" id="1_trnr3"]
-[ext_resource type="Resource" uid="uid://dn2r3kn3i8kre" path="res://Scripts/Inventory/Items/pick.tres" id="4_cxdlu"]
-[ext_resource type="Resource" uid="uid://bnrjyrhcckbft" path="res://Scripts/Inventory/Items/axe.tres" id="4_ss4vx"]
-[ext_resource type="Resource" uid="uid://p0tgsanjb0ra" path="res://Scripts/Inventory/Items/shovel.tres" id="5_cxdlu"]
-[ext_resource type="Resource" uid="uid://dql24mqjulugp" path="res://Scripts/Inventory/Items/watering_can.tres" id="5_m86u8"]
 
 [node name="Hotbar" type="Control" unique_id=305105236]
 layout_mode = 3
@@ -30,16 +26,12 @@ columns = 6
 
 [node name="slot" parent="GridContainer" unique_id=1112365762 instance=ExtResource("1_trnr3")]
 layout_mode = 2
-item = ExtResource("4_ss4vx")
 
 [node name="slot2" parent="GridContainer" unique_id=1344812167 instance=ExtResource("1_trnr3")]
 layout_mode = 2
-item = ExtResource("4_cxdlu")
 
 [node name="slot3" parent="GridContainer" unique_id=1921612576 instance=ExtResource("1_trnr3")]
 layout_mode = 2
-item = ExtResource("5_cxdlu")
 
 [node name="slot4" parent="GridContainer" unique_id=192334335 instance=ExtResource("1_trnr3")]
 layout_mode = 2
-item = ExtResource("5_m86u8")

@@ -12,5 +12,5 @@ script = ExtResource("2_huh87")
 item_id = "axe"
 name = "Axe"
 icon = SubResource("AtlasTexture_4l1ip")
-max_stack = 1
+max_stack = 2
 metadata/_custom_type_script = "uid://bibxsjhtbuxfc"

@@ -1,6 +1,11 @@
 extends Node2D
 
-
+enum GameState {
+	PLAY,
+	INVENTORY,
+	HOTBAR
+}
+@export var game_state: GameState = GameState.PLAY
 @export var start_scene : PackedScene
 
 
@@ -28,7 +33,7 @@ func _process(delta: float) -> void:
 func register_player(player: CharacterBody2D):
 	print("Player registered")
 	_player = player
-	SceneMagement.load_biome("GrassBiome");
+	SceneMagement.load_biome("grass_biome");
 
 func set_2D_Platform():
 	_player.enable_platformer_controls()
@@ -38,9 +43,9 @@ func set_top_dpwn():
 ##
 ## GET TILE DATA
 ##
-func getTileData(pos:Vector2):
+func getTileData(pos:Vector2, layer: String):
 	if SceneMagement.current_biome:
-		var tilemap: TileMapLayer = SceneMagement.current_biome.get_node("Ground");
+		var tilemap: TileMapLayer = SceneMagement.current_biome.get_node(layer);
 		if not tilemap:
 			print("Did not find tile map")
 

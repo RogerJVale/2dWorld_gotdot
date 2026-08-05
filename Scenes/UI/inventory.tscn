@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://c0us35873s727"]
+
+[ext_resource type="PackedScene" uid="uid://b7e4uqfvkssy7" path="res://Scenes/UI/slot.tscn" id="1_3n7vm"]
+[ext_resource type="Script" uid="uid://cfv3ransngr4d" path="res://Scripts/Inventory/Inventory.gd" id="1_dt15g"]
+[ext_resource type="Resource" uid="uid://dql24mqjulugp" path="res://Scripts/Inventory/Items/watering_can.tres" id="2_osrsm"]
+
+[node name="Inventory" type="Control" unique_id=479569285 node_paths=PackedStringArray("slots")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dt15g")
+slots = [NodePath("GridContainer/Slot"), NodePath("GridContainer/Slot2"), NodePath("GridContainer/Slot3"), NodePath("GridContainer/Slot4"), NodePath("GridContainer/Slot5"), NodePath("GridContainer/Slot6"), NodePath("GridContainer/Slot7"), NodePath("GridContainer/Slot8"), NodePath("GridContainer/Slot9"), NodePath("GridContainer/Slot10")]
+test_item = ExtResource("2_osrsm")
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=536296852]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = -82.0
+offset_right = 208.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+
+[node name="Slot" parent="GridContainer" unique_id=1416052683 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot2" parent="GridContainer" unique_id=549506220 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot3" parent="GridContainer" unique_id=559694685 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot4" parent="GridContainer" unique_id=693405023 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot5" parent="GridContainer" unique_id=482834818 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot6" parent="GridContainer" unique_id=285136354 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot7" parent="GridContainer" unique_id=464273541 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot8" parent="GridContainer" unique_id=836529670 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot9" parent="GridContainer" unique_id=866747651 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot10" parent="GridContainer" unique_id=2045974169 instance=ExtResource("1_3n7vm")]
+layout_mode = 2

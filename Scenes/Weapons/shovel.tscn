@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bbtl034ebb2v5"]
+
+[ext_resource type="Script" uid="uid://b7cdvjlw1j8jq" path="res://Scripts/Weapons/weapon.gd" id="1_o1hr1"]
+[ext_resource type="Texture2D" uid="uid://dms1bm8ybm1d5" path="res://Assets/Sprites/tools_weapons.png" id="2_bix70"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gniav"]
+atlas = ExtResource("2_bix70")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gxwvi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gniav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gniav")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Shovel" type="Node2D" unique_id=1763945035]
+script = ExtResource("1_o1hr1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2099159558]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_gxwvi")

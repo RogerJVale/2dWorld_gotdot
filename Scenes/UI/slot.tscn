@@ -1,16 +1,12 @@
 [gd_scene format=3 uid="uid://b7e4uqfvkssy7"]
 
-[ext_resource type="Texture2D" uid="uid://brjdmldibfra6" path="res://Assets/Items/AllPreview.png" id="1_dubax"]
 [ext_resource type="Script" uid="uid://cqes062654sb" path="res://Scripts/Inventory/slot.gd" id="1_gswik"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uyic3"]
-atlas = ExtResource("1_dubax")
-region = Rect2(129.32579, 811.0823, 68.62669, 66.03088)
 
 [node name="Slot" type="Panel" unique_id=1416052683]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 script = ExtResource("1_gswik")
+amount = null
 
 [node name="Highlight" type="ColorRect" parent="." unique_id=1112365762]
 custom_minimum_size = Vector2(80, 80)
@@ -27,4 +23,19 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 75.0
 offset_bottom = 75.0
-texture = SubResource("AtlasTexture_uyic3")
+
+[node name="Counter" type="Label" parent="." unique_id=731440784]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.03529412, 0.043137256, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "99"
+horizontal_alignment = 1

@@ -8,7 +8,7 @@ func load_biome(biome_name: String) -> void:
 	print("Loading biome: ", biome_name)
 
 	# Build the path from the string
-	var path := "res://Scenes/World/%s.tscn" % biome_name
+	var path := "res://Scenes/World/%s.scn" % biome_name
 
 	# Load the biome scene
 	var biome_scene: PackedScene = load(path)

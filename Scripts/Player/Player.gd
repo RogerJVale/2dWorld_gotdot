@@ -4,9 +4,10 @@ extends CharacterBody2D
 #ref to animated sprite
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
+
 @export var marker: FloorMarker
-#ref
-@export var speed: float = 200.0
+#Movement Speed
+@export var speed: float = 150.0
 # topdown vars
 var is_td : bool
 var is_moving:bool = false;
@@ -18,9 +19,13 @@ const jump_height: float = -350
 var _gravity: float = 980
 const max_gravity: float = 14.5
 
-const max_speed: float = 80
+const max_speed: float = 50
 const acceleration : float = 8
 const friction: float = 10
+
+#
+# thisis the cell that will be effected by tools
+var target_cell: Vector2i
 
 func _ready() -> void:
 	call_deferred("register_player")
@@ -29,6 +34,24 @@ func register_player()->void:
 	SceneMagement.player = self
 	GameManager.register_player(self)
 
+func _process(delta: float) -> void:
+	#handle the tool input
+	if Input.is_action_just_pressed("place_tile"):
+		if GameManager.equipped_item == null:
+			var dialog = get_tree().current_scene.get_node("MiniDialog")
+			dialog.show_dialog("No Item Equipped", func(): dialog.hide_dialog() )
+			return
+		#Debug
+		var tile_data = GameManager.getTileData(position, "Ground")
+		print("Player: tiledata = ", tile_data)
+		#Debug end
+		if GameManager.equipped_item.name == "Axe":
+			marker.show_marker("Axe")
+		elif GameManager.equipped_item.name == "Shovel":
+			marker.show_marker("Shovel")
+			GameManager.change_tile(target_cell)
+		elif GameManager.equipped_item.name == "Watering Can":
+			marker.show_marker("WateringCan")
 
 func _physics_process(delta: float) -> void:
 
@@ -58,8 +81,8 @@ func process_movement() -> void:
 
 		if direction != Vector2.ZERO:
 			last_direction = direction
-		display_tile_data()
-		marker.toggle_marker(velocity)
+		#display_tile_data()
+
 	else:
 		# Platformer movement (NO up/down input)
 		var x_input := Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -106,10 +129,10 @@ func enable_topdownControls():
 
 	is_td = true
 
-func display_tile_data():
-	if GameManager.getTileData(position):
-		var data: String = GameManager.getTileData(position)
-		#print ("Tile data " + data)
+#func display_tile_data():
+	#if GameManager.getTileData(position):
+		#var data: String = GameManager.getTileData(position)
+		##print ("Tile data " + data)
 
 func snap_player_to_tile():
 

@@ -5,11 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://cjnuhft0fpd1u" path="res://Scenes/UI/hotbar.tscn" id="3_4narx"]
 [ext_resource type="PackedScene" uid="uid://cdsmmjoffa35g" path="res://Scenes/Player/floor_marker.tscn" id="4_bm7dg"]
 [ext_resource type="PackedScene" uid="uid://jggiykxo3qne" path="res://Scenes/UI/mini_dialog.tscn" id="4_jl77m"]
+[ext_resource type="PackedScene" uid="uid://c0us35873s727" path="res://Scenes/UI/inventory.tscn" id="4_nf17q"]
 
 [node name="Main" type="Node2D" unique_id=837822571]
 y_sort_enabled = true
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=758009826]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer2" unique_id=1461546039]
 anchors_preset = 15
@@ -43,7 +45,9 @@ transform = Transform2D(1, 0, 0, 1, 500, 250)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1798767688]
 
-[node name="Hotbar" parent="CanvasLayer" unique_id=305105236 instance=ExtResource("3_4narx")]
+[node name="Inventory" parent="CanvasLayer" unique_id=479569285 instance=ExtResource("4_nf17q")]
+
+[node name="Hotbar" parent="CanvasLayer" unique_id=305105236 node_paths=PackedStringArray("inventory") instance=ExtResource("3_4narx")]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -55,6 +59,7 @@ offset_right = 20.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
+inventory = NodePath("../Inventory")
 
 [node name="FloorMarker" parent="." unique_id=1462664468 node_paths=PackedStringArray("player") instance=ExtResource("4_bm7dg")]
 position = Vector2(54, 32)
