@@ -1,5 +1,5 @@
 extends CanvasLayer
-
+class_name MiniDialog
 @export var background_texture : Texture2D
 
 var callback: Callable = Callable()

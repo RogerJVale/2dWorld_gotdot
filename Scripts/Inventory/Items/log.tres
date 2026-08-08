@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://dwp8uqal2ly6q"]
+
+[ext_resource type="Texture2D" uid="uid://dms1bm8ybm1d5" path="res://Assets/Sprites/tools_weapons.png" id="1_5ghx0"]
+[ext_resource type="Script" uid="uid://bibxsjhtbuxfc" path="res://Scripts/Inventory/item.gd" id="1_yi0mv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u44om"]
+atlas = ExtResource("1_5ghx0")
+region = Rect2(170.89993, 0, 72.52078, 67.09939)
+
+[resource]
+script = ExtResource("1_yi0mv")
+item_id = "log"
+name = "Log"
+icon = SubResource("AtlasTexture_u44om")
+quantity = 10
+item_type = 1
+metadata/_custom_type_script = "uid://bibxsjhtbuxfc"

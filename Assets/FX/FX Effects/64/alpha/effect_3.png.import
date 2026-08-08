@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o7qnaev6630d"
-path="res://.godot/imported/shovel.png-fb6e017ddf2262d39bf0cbc694dd82bb.ctex"
+uid="uid://dyg5u4pyh5uio"
+path="res://.godot/imported/effect_3.png-82f52a77275c4d18f20eecb4d508a917.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/shovel.png"
-dest_files=["res://.godot/imported/shovel.png-fb6e017ddf2262d39bf0cbc694dd82bb.ctex"]
+source_file="res://Assets/FX/FX Effects/64/alpha/effect_3.png"
+dest_files=["res://.godot/imported/effect_3.png-82f52a77275c4d18f20eecb4d508a917.ctex"]
 
 [params]
 

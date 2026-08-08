@@ -7,8 +7,8 @@ var current_slot := 0
 var selected_item: Item = null
 
 func _process(_delta):
-	if GameManager.game_state == GameManager.GameState.PLAY \
-	or GameManager.game_state == GameManager.GameState.HOTBAR:
+	if GameManager.game_state == GameStates.GameState.PLAY \
+	or GameManager.game_state == GameStates.GameState.HOTBAR:
 		if Input.is_action_just_pressed("nav_left"):
 			current_slot = (current_slot - 1 + slots.size()) % slots.size()
 			update_current_item()
@@ -17,12 +17,12 @@ func _process(_delta):
 			current_slot = (current_slot + 1) % slots.size()
 			update_current_item()
 
-	if GameManager.game_state == GameManager.GameState.HOTBAR:
+	if GameManager.game_state == GameStates.GameState.HOTBAR:
 		if Input.is_action_just_pressed("nav_up"):
-			GameManager.game_state = GameManager.GameState.INVENTORY
+			GameManager.game_state = GameStates.GameState.INVENTORY
 
 		if Input.is_action_just_pressed("select"):
-			remove_item_from_slot(current_slot)
+			remove_item(current_slot)
 
 
 func _ready() -> void:
@@ -36,30 +36,41 @@ func _ready() -> void:
 ##############################
 ## Navigation
 ##############################
-func add_item(item: Item) -> bool:
+func add_item(data) -> bool:
+	# data = { "item": Item, "amount": int }
+
 	for i in slots.size():
-		if slots[i].item == null:
-			slots[i].item = item
+		var slot = slots[i]
+
+		if slot.item == null:
+			slot.item = data["item"]
+			slot.amount = data["amount"]
+
 			if i == current_slot:
 				update_current_item()
+
 			return true
 
 	return false
+func remove_item(index: int):
+	var slot = slots[index]
 
-func remove_item_from_slot(index: int):
-	if index < 0 or index >= slots.size():
+	if slot.item == null:
 		return
-	print("Removing ", selected_item.name)
 
-	if GameManager.game_state == GameManager.GameState.HOTBAR:
-		if !inventory.add_item(slots[index].item):
-			print("Failed to add item to inventory")
+	var data = {
+		"item": slot.item,
+		"amount": slot.amount
+	}
 
-
-	slots[index].item = null
-
-	if index == current_slot:
+	if $"../Inventory".add_stack(data):
+		# Clear hotbar slot
+		slot.item = null
+		slot.amount = 0
 		update_current_item()
+		print("Moved stack to inventory")
+	else:
+		print("Inventory full — drop on floor TODO")
 
 func swap_slots(a: int, b: int):
 	if a < 0 or a >= slots.size():
@@ -93,13 +104,18 @@ func highlight_slot(index):
 ## Saving/loading
 ##################################
 func save_hotbar():
-	var items := []
-	for slot in slots:
-		items.append(slot.item)
+	var save_data := []
+
+	for i in slots.size():
+		var slot = slots[i]
+
+		save_data.append({
+			"item": slot.item,
+			"amount": slot.amount
+		})
 
 	var save := Resource.new()
-	save.set_meta("hotbar_items", items)
-
+	save.set_meta("hotbar", save_data)
 	ResourceSaver.save(save, "user://hotbar.tres")
 	print("Hotbar saved")
 
@@ -109,17 +125,20 @@ func load_hotbar():
 		return
 
 	var save := load("user://hotbar.tres")
-	var loaded = save.get_meta("hotbar_items")
+	var data = save.get_meta("hotbar")
 
-	if loaded == null:
+	if data == null:
 		print("Failed to load hotbar")
 		return
 
-	for i in slots.size():
-		slots[i].item = loaded[i]
+	for i in data.size():
+		var entry = data[i]
+		slots[i].item = entry["item"]
+		slots[i].amount = entry["amount"]
 
 	update_current_item()
 	print("Hotbar loaded")
+
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

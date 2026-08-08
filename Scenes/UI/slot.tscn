@@ -6,7 +6,6 @@
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 script = ExtResource("1_gswik")
-amount = null
 
 [node name="Highlight" type="ColorRect" parent="." unique_id=1112365762]
 custom_minimum_size = Vector2(80, 80)
@@ -15,16 +14,38 @@ layout_mode = 0
 offset_right = 80.0
 offset_bottom = 80.0
 
-[node name="Icon" type="TextureRect" parent="." unique_id=1826397994]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1924137484]
 custom_minimum_size = Vector2(70, 70)
 custom_maximum_size = Vector2(70, 70)
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 75.0
-offset_bottom = 75.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9356429, 0.92374027, 0.99827343, 1)
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1826397994]
+z_index = 1
+custom_minimum_size = Vector2(70, 70)
+custom_maximum_size = Vector2(70, 70)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Counter" type="Label" parent="." unique_id=731440784]
+z_index = 1
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

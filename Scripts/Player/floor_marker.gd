@@ -27,7 +27,25 @@ func set_tilemaplayer(tml : TileMapLayer):
 
 	tile_layer = tml
 func show_marker(weapon_type: String):
-	# 1. Player world position
+
+	var snapped_pos: Vector2 = get_marker_position()
+	player.target_cell = snapped_pos
+	#Move marker
+	global_position = snapped_pos
+	visible = true
+
+	show_tool_action(weapon_type, snapped_pos)
+
+func get_tile_data_at_marker_position(layer_name: String) -> TileTypes.Type:
+	return GameManager.getTileData(get_marker_position(),layer_name)
+
+func get_marker_position() -> Vector2i:
+
+	var target_cell = get_marker_cell()
+	# 5. Convert tile coordinate → world position
+	return  tile_layer.to_global(tile_layer.map_to_local(target_cell))
+
+func get_marker_cell() -> Vector2i:
 	var player_pos: Vector2 = player.global_position
 
 	# 2. Convert world → tile coordinate
@@ -37,36 +55,26 @@ func show_marker(weapon_type: String):
 	var dir := Vector2i(player.last_direction.x, player.last_direction.y)
 
 	# 4. Move one tile forward in facing direction
-	var target_cell: Vector2i = cell + dir
-
-	# 5. Convert tile coordinate → world position
-	var snapped_pos: Vector2 = tile_layer.to_global(tile_layer.map_to_local(target_cell))
-	player.target_cell = snapped_pos
-	# 6. Move marker
-	marker.global_position = snapped_pos
-	visible = true
-
-
-
-	show_tool_action(weapon_type, snapped_pos)
-
-
+	return  cell + dir
 
 
 func show_tool_action(weapon_type: String, snapped_pos: Vector2):
 
-	var data: String = GameManager.getTileData(snapped_pos, "Ground")
+	var data: TileTypes.Type = GameManager.getTileData(snapped_pos, "Ground")
 
 
-	if weapon_type == "Axe" and GameManager.getTileData(snapped_pos,"InFront") == "tree_stump":
+	if weapon_type == "Axe" and GameManager.getTileData(snapped_pos,"InFront") == TileTypes.Type.tree_stump:
 		$Sprite2D/AxeSwing.visible = true;
 		$Sprite2D/AxeSwing.play_anim()
-	elif weapon_type == "Shovel" and data == "grass":
+	elif weapon_type == "Shovel" and data == TileTypes.Type.grass:
 		$Sprite2D/Shovel.visible = true;
 		$Sprite2D/Shovel.play_anim()
-	elif weapon_type == "WateringCan" and data == "dirt":
+	elif weapon_type == "WateringCan" and data == TileTypes.Type.dirt:
 		$Sprite2D/WateringCan.visible = true;
 		$Sprite2D/WateringCan.play_anim()
+	elif weapon_type == "Pick":
+		$Sprite2D/Pick.visible = true;
+		$Sprite2D/Pick.play_anim()
 	else:
 		## faile to do the correct task
 		await get_tree().create_timer(0.5).timeout

@@ -1,16 +1,16 @@
 [gd_resource type="Resource" script_class="Item" format=3 uid="uid://p0tgsanjb0ra"]
 
-[ext_resource type="Texture2D" uid="uid://brjdmldibfra6" path="res://Assets/Items/AllPreview.png" id="1_i0i2v"]
+[ext_resource type="Texture2D" uid="uid://dms1bm8ybm1d5" path="res://Assets/Sprites/tools_weapons.png" id="1_i0i2v"]
 [ext_resource type="Script" uid="uid://bibxsjhtbuxfc" path="res://Scripts/Inventory/item.gd" id="2_n8pso"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uyic3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4dvr"]
 atlas = ExtResource("1_i0i2v")
-region = Rect2(129.32579, 811.0823, 68.62669, 66.03088)
+region = Rect2(31.414848, 0, 35.90883, 32.879314)
 
 [resource]
 script = ExtResource("2_n8pso")
 item_id = "shovel"
 name = "Shovel"
-icon = SubResource("AtlasTexture_uyic3")
+icon = SubResource("AtlasTexture_k4dvr")
 max_stack = 1
 metadata/_custom_type_script = "uid://bibxsjhtbuxfc"

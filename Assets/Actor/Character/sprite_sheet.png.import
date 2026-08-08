@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cho4dn8ws3mrv"
-path="res://.godot/imported/axe.png-fae13bc7673de1408c47493465e4d4d7.ctex"
+uid="uid://br7smb3105u3a"
+path="res://.godot/imported/sprite_sheet.png-2b3c30e439c1ca30ccf88e059c4d0ad8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/axe.png"
-dest_files=["res://.godot/imported/axe.png-fae13bc7673de1408c47493465e4d4d7.ctex"]
+source_file="res://Assets/Actor/Character/sprite_sheet.png"
+dest_files=["res://.godot/imported/sprite_sheet.png-2b3c30e439c1ca30ccf88e059c4d0ad8.ctex"]
 
 [params]
 

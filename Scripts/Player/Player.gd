@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 #ref to animated sprite
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
-
+@onready var mini_dialog: CanvasLayer = $"../MiniDialog"
 
 @export var marker: FloorMarker
 #Movement Speed
@@ -36,10 +36,9 @@ func register_player()->void:
 
 func _process(delta: float) -> void:
 	#handle the tool input
-	if Input.is_action_just_pressed("place_tile"):
+	if Input.is_action_just_pressed("attack2"):
 		if GameManager.equipped_item == null:
-			var dialog = get_tree().current_scene.get_node("MiniDialog")
-			dialog.show_dialog("No Item Equipped", func(): dialog.hide_dialog() )
+			mini_dialog.show_dialog("No Item Equipped", func(): mini_dialog.hide_dialog() )
 			return
 		#Debug
 		var tile_data = GameManager.getTileData(position, "Ground")
@@ -52,6 +51,10 @@ func _process(delta: float) -> void:
 			GameManager.change_tile(target_cell)
 		elif GameManager.equipped_item.name == "Watering Can":
 			marker.show_marker("WateringCan")
+		elif GameManager.equipped_item.name == "pick":
+			marker.show_marker("Pick")
+
+
 
 func _physics_process(delta: float) -> void:
 
@@ -81,6 +84,7 @@ func process_movement() -> void:
 
 		if direction != Vector2.ZERO:
 			last_direction = direction
+			check_for_drop()
 		#display_tile_data()
 
 	else:
@@ -117,7 +121,8 @@ func play_animation(prefix : String, dir: Vector2) -> void:
 		anim.play(prefix + "_down")
 #endregion
 
-
+func check_for_drop():
+	GameManager.check_for_drop_nearby(position)
 
 func enable_platformer_controls():
 	print("Seeting up for platformer")

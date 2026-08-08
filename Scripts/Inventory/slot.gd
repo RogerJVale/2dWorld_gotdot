@@ -29,7 +29,7 @@ func highlight():
 
 func update_counter(amount: int):
 	print("updating counter ", amount)
-	if amount < 1:
+	if amount < 2:
 		$Counter.hide()
 	else:
 		$Counter.show()

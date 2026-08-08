@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		toggle_inventory()
 
-	if GameManager.game_state == GameManager.GameState.INVENTORY:
+	if GameManager.game_state == GameStates.GameState.INVENTORY:
 		if Input.is_action_just_pressed("nav_left"):
 			current_slot = (current_slot - 1 + slots.size()) % slots.size()
 			update_current_item()
@@ -39,24 +39,32 @@ func _process(delta: float) -> void:
 			update_current_item()
 
 		if Input.is_action_just_pressed("nav_down"):
-			GameManager.game_state = GameManager.GameState.HOTBAR
+			GameManager.game_state = GameStates.GameState.HOTBAR
 		if Input.is_action_just_pressed("select"):
-			remove_item(current_slot)
+			remove_item_to_hotbar(current_slot)
+
+		if Input.is_action_just_pressed("drop"):
+			drop_item()
 #########################
 ## Usage Funcs
 #########################
-func add_item(new_item: Item) -> bool:
+func add_item(new_item: Item, amount: int = 0) -> bool:
 
 	print("Adding ", new_item.name , " to inventory")
+	var qty: int
+	if amount == 0:
+		qty = new_item.quantity
+	else:
+		qty = amount
 
 	# 1. Try stacking
 	for i in items.size():
 		var data = items[i]
 		if data != null and data["item"].item_id == new_item.item_id:
-			if data["amount"] < data["item"].max_stack:
-				data["amount"] += 1
+			if data["amount"] + qty <= data["item"].max_stack:
+				data["amount"] += qty
 				refresh_slot(i)
-				print("Stacked item")
+				print("Stacked item ", qty)
 				return true
 
 	# 2. Put into empty slot
@@ -64,23 +72,64 @@ func add_item(new_item: Item) -> bool:
 		if items[i] == null:
 			items[i] = {
 				"item": new_item,
-				"amount": 1
+				"amount": qty
 			}
 			refresh_slot(i)
 			print("put item into new slot")
 			return true
 
 	return false
+func add_stack(data: Dictionary) -> bool:
+	var item = data["item"]
+	var amount = data["amount"]
 
-func remove_item(index: int):
+	# 1. Try stacking
+	for i in items.size():
+		var slot = items[i]
+		if slot != null and slot["item"].item_id == item.item_id:
+			if slot["amount"] + amount <= slot["item"].max_stack:
+				slot["amount"] += amount
+				refresh_slot(i)
+				return true
+
+	# 2. Put into empty slot
+	for i in items.size():
+		if items[i] == null:
+			items[i] = {
+				"item": item,
+				"amount": amount
+			}
+			refresh_slot(i)
+			return true
+
+	return false
+
+func remove_item_to_hotbar(index: int):
+	var data = items[index]
+
+	if data == null:
+		return
 	if $"../Hotbar".add_item(items[index]):
-		print("Sucess")
+
+		print("Moved stack to hotbar")
 	else:
 		print("Should drop on floor TODO")
 		return
+	remove_item_from_inventory(index)
 
+
+func remove_item_from_inventory(index:int):
 	items[index] = null
 	refresh_slot(index)
+
+
+func drop_item():
+	var data = items[current_slot]
+	var item = data["item"]
+	var amount = data["amount"]
+	print("Droping ", item.name)
+	GameManager.store_drop(item,amount)
+	remove_item_from_inventory(current_slot)
 
 func swap_items(a: int, b: int):
 	var temp = items[a]
@@ -104,6 +153,7 @@ func refresh_slot(i: int):
 		slots[i].amount = data["amount"]
 
 
+#region Saving
 ############################
 ## Saving
 ############################
@@ -134,6 +184,7 @@ func _notification(what):
 
 func _exit_tree():
 	save_inventory()
+#endregion
 
 ############################
 ## Navigation
@@ -141,10 +192,10 @@ func _exit_tree():
 func toggle_inventory():
 	if $GridContainer.visible:
 		$GridContainer.visible = false
-		GameManager.game_state = GameManager.GameState.PLAY
+		GameManager.game_state = GameStates.GameState.PLAY
 	else:
 		$GridContainer.visible = true
-		GameManager.game_state = GameManager.GameState.INVENTORY
+		GameManager.game_state = GameStates.GameState.INVENTORY
 
 func update_current_item():
 	selected_item = slots[current_slot].item
@@ -167,3 +218,4 @@ func add_items_to_inventory():
 	add_item(preload("res://Scripts/Inventory/Items/pick.tres"))
 	add_item(preload("res://Scripts/Inventory/Items/shovel.tres"))
 	add_item(preload("res://Scripts/Inventory/Items/watering_can.tres"))
+	add_item(preload("res://Scripts/Inventory/Items/log.tres"))
