@@ -6,7 +6,7 @@ var callback: Callable = Callable()
 
 func _ready() -> void:
 	$Panel.visible = false;
-	$Panel/Label.resized.connect(_sync)
+
 	return
 	var sb := StyleBoxTexture.new()
 	sb.texture = background_texture
@@ -41,7 +41,7 @@ func _sync():
 	var label := $Panel/Label
 	var panel := $Panel
 
-	panel.size = label.size + Vector2(40,40)
+	var text_size = label.get_combined_minimum_size()
 
-	# Center the label inside the panel
-	label.position = (panel.size - label.size) * 0.5
+	panel.size = text_size + Vector2(40, 40)
+	label.position = (panel.size - text_size) * 0.5

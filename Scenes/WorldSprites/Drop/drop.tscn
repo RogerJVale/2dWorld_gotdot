@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://cjdt0jxospkc8"]
 
-[ext_resource type="Script" uid="uid://c33tijdj4x5iw" path="res://Scripts/WorldSprites/Drop/drop.gd" id="1_0p6ei"]
-[ext_resource type="Texture2D" uid="uid://d338vlayd85ao" path="res://Assets/Items/Food/Meat.png" id="2_geuwq"]
+[ext_resource type="Script" uid="uid://c33tijdj4x5iw" path="res://Scripts/WorldSprites/Drop/drop.gd" id="1_geuwq"]
 [ext_resource type="Texture2D" uid="uid://bvri5fobj1yok" path="res://Assets/FX/FX Effects/particle_examples/alpha/floaty_32.png" id="3_8ba3n"]
+[ext_resource type="Texture2D" uid="uid://djbmq41emt7wx" path="res://Assets/Items/Tool/Axe.png" id="3_dsjvq"]
+[ext_resource type="Script" uid="uid://o3apdhlbiqwx" path="res://Scripts/Animations/diablo_pop.gd" id="4_8ba3n"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4125v"]
 particles_animation = true
@@ -14,22 +15,23 @@ particles_anim_loop = false
 lifetime_randomness = 0.19
 particle_flag_disable_z = true
 emission_shape = 1
-emission_sphere_radius = 90.31
+emission_sphere_radius = 16.36
 gravity = Vector3(0, -38.49, 0)
 color = Color(1, 0.20392157, 1, 1)
 
 [node name="Drop" type="Node2D" unique_id=940790550]
 z_index = 1
-scale = Vector2(0.1, 0.1)
-script = ExtResource("1_0p6ei")
-
-[node name="TextureRect" type="TextureRect" parent="." unique_id=2025821103]
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("2_geuwq")
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_geuwq")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=529982815]
 material = SubResource("CanvasItemMaterial_4125v")
-position = Vector2(19.999998, 20)
+position = Vector2(0, -14)
 texture = ExtResource("3_8ba3n")
 process_material = SubResource("ParticleProcessMaterial_j4bll")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2122697573]
+texture = ExtResource("3_dsjvq")
+
+[node name="DiabloPop" type="Node2D" parent="." unique_id=112607530]
+script = ExtResource("4_8ba3n")

@@ -1,5 +1,10 @@
 extends Node2D
 
+@export var stone := {}
+@export var trees := {}
+@export var plants := {}
+
+
 @export var game_state: GameStates.GameState = GameStates.GameState.PLAY
 @export var start_scene : PackedScene
 
@@ -70,13 +75,7 @@ func getTileData(pos:Vector2, layer: String)->TileTypes.Type:
 
 		if data:
 			var tile_type_str: String = data.get_custom_data("type")
-			# Convert string → enum safely
-			if TileTypes.Type.has(tile_type_str):
-				return TileTypes.Type[tile_type_str]
-			else:
-				print("Unknown tile type: ", tile_type_str)
-				return TileTypes.Type.EMPTY
-
+			return TileTypes.tile_type_from_string(tile_type_str)
 	return TileTypes.Type.EMPTY
 
 func get_tile_data_at_marker_position(layer_name: String)->TileTypes.Type:
@@ -178,6 +177,7 @@ func toggle_lights():
 ########################
 ## Drops
 ########################
+#region Drops
 @export var dropped_items := {}
 
 func store_drop(item: Item, amount: int):
@@ -217,3 +217,76 @@ func pickup_drop(drop):
 	var item = drop.item
 	var amount = drop.amount
 	inventory.add_item(item, amount)
+#endregion
+
+
+
+
+
+#####################
+## Enviorment
+######################
+var enviorment_health_bar_active: bool = false
+var enviorment_health_bar: ProgressBar
+func check_enviorment():
+	var type: TileTypes.Type  = get_tile_data_at_marker_position("InFront")
+	if type == TileTypes.Type.stone:
+		show_stone_health_bar(floor_marker.get_marker_cell())
+		enviorment_health_bar_active = true
+		return
+
+	if enviorment_health_bar_active and enviorment_health_bar != null:
+		enviorment_health_bar.queue_free()
+		enviorment_health_bar_active = false
+
+
+
+func damage_stone(cell: Vector2i, amount: int):
+	if stone.has(cell):
+		var data = stone[cell]
+
+		data.health -= amount
+
+		# Spawn bar if not visible
+		show_stone_health_bar(cell)
+
+		# Update bar
+		data.bar.value = data.health
+
+		# Destroy stone if dead
+		if data.health <= 0:
+			destroy_stone(cell)
+
+func destroy_stone(cell: Vector2i):
+	infront_layer.set_cell(cell, -1)  # remove tile
+	var data = stone[cell]
+
+	if data.bar != null:
+		data.bar.queue_free()
+
+		stone.erase(cell)
+
+func show_stone_health_bar(cell: Vector2i):
+	var data = stone[cell]
+
+	# Already has a bar?
+	if data.bar != null:
+		return
+
+	enviorment_health_bar = ProgressBar.new()
+	enviorment_health_bar.min_value = 0
+	enviorment_health_bar.max_value = data.max_health
+	enviorment_health_bar.value = data.health
+	enviorment_health_bar.size = Vector2(20, 1)
+	enviorment_health_bar.modulate = Color.GREEN
+	enviorment_health_bar.show_percentage = false
+	var world_pos = infront_layer.map_to_local(floor_marker.get_marker_cell())
+	enviorment_health_bar.position = world_pos + Vector2(-10, -15)
+	enviorment_health_bar.z_index = 1
+	enviorment_health_bar.scale = Vector2(1, 0.1)
+	add_child(enviorment_health_bar)
+	data.bar = enviorment_health_bar
+
+func remove_health_bar(cell:Vector2i):
+
+	pass

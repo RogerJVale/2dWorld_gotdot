@@ -1,11 +1,15 @@
 class_name BiomeData
 extends Node
 
-
+# lighitng (not surer why this is here)
 @export var lights: Array[PointLight2D]  = []
 var lights_active:bool
-var tile_data: Array[Tile_Data] = []
 var directional_light: DirectionalLight2D
+
+
+
+var tile_data: Array[Tile_Data] = []
+
 
 func _ready() -> void:
 	# grab all the point lights in the scene
@@ -41,6 +45,8 @@ func load_all_tiles_from_res(biomeName: String):
 	#draw the tiles on the biome
 	for tile in tile_data:
 		GameManager.change_map_cell_no_save(tile.cell)
+
+	register_resource_tiles()
 	spawn_trees_from_stumps()
 
 func spawn_trees_from_stumps() -> void:
@@ -66,6 +72,39 @@ func spawn_trees_from_stumps() -> void:
 
 			# Optional: clear the stump tile
 			# tilemap_layer.set_cell(cell, -1)
+## place all resources in there dictionarys
+## all resources are placed on th inFront layer
+### so wi will scnat that layer only
+func register_resource_tiles():
+	var tilemap_layer = $"../InFront"
+	# Loop all used cells on this layer
+	for cell in tilemap_layer.get_used_cells():
+		var tile_data : TileData = tilemap_layer.get_cell_tile_data(cell)
+		if tile_data == null:
+			continue
+
+		# Assuming you set a custom data key "tree_stump" = true on that tile
+		var tile_type: String = tile_data.get_custom_data("type")
+		var tile_type_enum = TileTypes.tile_type_from_string(tile_type)
+		match tile_type:
+			"tree_stump":
+				GameManager.trees[cell] = {
+					"max_health" : 200,
+					"health": 200,
+					"type": "tree",
+					"bar" : null
+				}
+			"stone":
+				GameManager.stone[cell] = {
+					"max_health" : 100,
+					"health": 100,
+					"type": "rock",
+					"bar" : null
+				}
+
+
+
+
 
 
 

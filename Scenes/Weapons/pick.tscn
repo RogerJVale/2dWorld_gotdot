@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b7cdvjlw1j8jq" path="res://Scripts/Weapons/weapon.gd" id="1_4u7qk"]
 [ext_resource type="Texture2D" uid="uid://dms1bm8ybm1d5" path="res://Assets/Sprites/tools_weapons.png" id="1_l1gax"]
+[ext_resource type="PackedScene" uid="uid://b4vox3gqa2bvk" path="res://Scenes/Weapons/slash.tscn" id="2_76x1o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4u7qk"]
 atlas = ExtResource("1_l1gax")
@@ -10,6 +11,15 @@ region = Rect2(99, 0, 33, 33)
 [sub_resource type="SpriteFrames" id="SpriteFrames_gxwvi"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4u7qk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4u7qk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4u7qk")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4u7qk")
 }, {
@@ -24,6 +34,8 @@ animations = [{
 [node name="Pick" type="Node2D" unique_id=880950573]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_4u7qk")
+
+[node name="Slash" parent="." unique_id=1639061579 instance=ExtResource("2_76x1o")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1422099132]
 sprite_frames = SubResource("SpriteFrames_gxwvi")

@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://b4vox3gqa2bvk"]
+
+[ext_resource type="Texture2D" uid="uid://bwr3gkpu17s1h" path="res://Assets/FX/Attack/SlashCurved/SpriteSheet.png" id="1_ivuff"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddhxi"]
+atlas = ExtResource("1_ivuff")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yias2"]
+atlas = ExtResource("1_ivuff")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1y2wb"]
+atlas = ExtResource("1_ivuff")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rf3dn"]
+atlas = ExtResource("1_ivuff")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j4bll"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddhxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yias2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1y2wb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rf3dn")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": 1,
+"name": &"slash_l",
+"speed": 5.0
+}]
+
+[node name="Slash" type="AnimatedSprite2D" unique_id=1639061579]
+sprite_frames = SubResource("SpriteFrames_j4bll")
+animation = &"slash_l"

@@ -12,6 +12,7 @@ extends CharacterBody2D
 var is_td : bool
 var is_moving:bool = false;
 var is_grounded : bool
+var is_attacking = false;
 var last_direction: Vector2 = Vector2.RIGHT
 var direction: Vector2
 # platform vars
@@ -28,6 +29,7 @@ const friction: float = 10
 var target_cell: Vector2i
 
 func _ready() -> void:
+	$AnimatedSprite2D.animation_finished.connect(_on_animated_sprite_2d_animation_finished)
 	call_deferred("register_player")
 
 func register_player()->void:
@@ -35,7 +37,9 @@ func register_player()->void:
 	GameManager.register_player(self)
 
 func _process(delta: float) -> void:
-	#handle the tool input
+	######################
+	# handle the tool input
+	######################
 	if Input.is_action_just_pressed("attack2"):
 		if GameManager.equipped_item == null:
 			mini_dialog.show_dialog("No Item Equipped", func(): mini_dialog.hide_dialog() )
@@ -85,6 +89,7 @@ func process_movement() -> void:
 		if direction != Vector2.ZERO:
 			last_direction = direction
 			check_for_drop()
+			GameManager.check_enviorment()
 		#display_tile_data()
 
 	else:
@@ -105,6 +110,7 @@ func process_gravity(delta: float):
 	velocity.y += _gravity * delta
 
 func process_animation():
+	if is_attacking: return
 	if velocity != Vector2.ZERO:
 		play_animation("walk", last_direction)
 	else:
@@ -119,6 +125,23 @@ func play_animation(prefix : String, dir: Vector2) -> void:
 		anim.play(prefix + "_up")
 	elif dir.y > 0 && is_td:
 		anim.play(prefix + "_down")
+
+func play_attack_animation(prefix: String):
+	is_attacking = true
+	print("playing attack animation")
+	var dir = last_direction
+	if dir.x> 0:
+		anim.play(prefix + "_right")
+	elif dir.x < 0:
+		anim.play(prefix + "_left")
+	elif dir.y < 0 && is_td:
+		anim.play(prefix + "_up")
+	elif dir.y > 0 && is_td:
+		anim.play(prefix + "_down")
+
+func _on_animated_sprite_2d_animation_finished():
+	if is_attacking:
+		is_attacking = false
 #endregion
 
 func check_for_drop():

@@ -72,9 +72,11 @@ func show_tool_action(weapon_type: String, snapped_pos: Vector2):
 	elif weapon_type == "WateringCan" and data == TileTypes.Type.dirt:
 		$Sprite2D/WateringCan.visible = true;
 		$Sprite2D/WateringCan.play_anim()
-	elif weapon_type == "Pick":
+	elif weapon_type == "Pick" and GameManager.getTileData(snapped_pos,"InFront") == TileTypes.Type.stone:
 		$Sprite2D/Pick.visible = true;
 		$Sprite2D/Pick.play_anim()
+		player.play_attack_animation("2h_overswing")
+		GameManager.damage_stone(get_marker_cell(),10)
 	else:
 		## faile to do the correct task
 		await get_tree().create_timer(0.5).timeout

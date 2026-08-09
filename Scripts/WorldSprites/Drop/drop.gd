@@ -5,13 +5,16 @@ class_name Drop
 @export var lifetime := 100.0   # seconds before auto-despawn
 @export var item: Item
 @export var amount:int
-@onready var texture_rect: TextureRect = $TextureRect
+@onready var sprite_2d: Sprite2D = $Sprite2D
 
-var tilemap_layer: TileMapLayer
+
+
 
 
 func _ready():
-	texture_rect.texture = item.icon
+	sprite_2d.texture = item.icon
 	position = world_position
+
+
 	await get_tree().create_timer(lifetime).timeout
 	queue_free()
