@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var stone := {}
+@export var stones := {}
 @export var trees := {}
 @export var plants := {}
 
@@ -220,73 +220,128 @@ func pickup_drop(drop):
 #endregion
 
 
-
-
-
 #####################
 ## Enviorment
 ######################
-var enviorment_health_bar_active: bool = false
+
+#region Enviormental health bar for distructable resources
+var env_bar_active: bool = false
+var env_bar_cell := Vector2i()
 var enviorment_health_bar: ProgressBar
+
 func check_enviorment():
-	var type: TileTypes.Type  = get_tile_data_at_marker_position("InFront")
+	var type: TileTypes.Type = get_tile_data_at_marker_position("InFront")
+	var current_cell = floor_marker.get_marker_cell()
+
+	# If bar exists but tile changed → remove it
+	if env_bar_active and current_cell != env_bar_cell:
+		enviorment_health_bar.queue_free()
+		enviorment_health_bar = null
+		env_bar_active = false
+
+	# Show bar only if not already active
 	if type == TileTypes.Type.stone:
-		show_stone_health_bar(floor_marker.get_marker_cell())
-		enviorment_health_bar_active = true
+		if !env_bar_active:
+			show_enviorment_health_bar(current_cell, stones[current_cell]["health"], type)
+			env_bar_active = true
+			env_bar_cell = current_cell
 		return
 
-	if enviorment_health_bar_active and enviorment_health_bar != null:
+	if type == TileTypes.Type.tree_stump:
+		if !env_bar_active:
+			show_enviorment_health_bar(current_cell, trees[current_cell]["health"], type)
+			env_bar_active = true
+			env_bar_cell = current_cell
+		return
+
+	# Not looking at a resource → remove bar
+	if env_bar_active:
 		enviorment_health_bar.queue_free()
-		enviorment_health_bar_active = false
+		enviorment_health_bar = null
+		env_bar_active = false
+
+#func check_enviorment():
+	#var type: TileTypes.Type  = get_tile_data_at_marker_position("InFront")
+	#var current_cell = floor_marker.get_marker_cell()
+#
+	#if enviorment_health_bar:
+		#enviorment_health_bar.queue_free()
+	## Only remove the bar if the tile changed
+	#if enviorment_health_bar and enviorment_health_bar.position != infront_layer.map_to_local(current_cell) + Vector2(-10, -15):
+		#enviorment_health_bar.queue_free()
+#
+	#if type == TileTypes.Type.stone:
+		#show_enviorment_health_bar(current_cell, stones[current_cell]["health"], type)
+	#elif type == TileTypes.Type.tree_stump:
+		#show_enviorment_health_bar(current_cell, trees[current_cell]["health"], type)
+
+func damage_stone(cell: Vector2i, amount: int, type: TileTypes.Type):
+	if !enviorment_health_bar:
+		return
+
+	var data
+	if type == TileTypes.Type.stone && stones.has(cell):
+		data = stones[cell]
+	elif type == TileTypes.Type.tree_stump && trees.has(cell):
+		data = trees[cell]
+	else:
+		print("No data found")
+		return
 
 
+	data.health -= amount
+	print("data health", data.health)
 
-func damage_stone(cell: Vector2i, amount: int):
-	if stone.has(cell):
-		var data = stone[cell]
+	# Update bar
+	enviorment_health_bar.value = data.health
+	# Destroy object if dead
+	if data.health <= 0:
+		destroy_object(cell, type)
 
-		data.health -= amount
-
-		# Spawn bar if not visible
-		show_stone_health_bar(cell)
-
-		# Update bar
-		data.bar.value = data.health
-
-		# Destroy stone if dead
-		if data.health <= 0:
-			destroy_stone(cell)
-
-func destroy_stone(cell: Vector2i):
+func destroy_object(cell: Vector2i, type: TileTypes.Type):
 	infront_layer.set_cell(cell, -1)  # remove tile
-	var data = stone[cell]
 
-	if data.bar != null:
-		data.bar.queue_free()
+	var data = get_data_for_type(cell, type)
+	if data == null: return
 
-		stone.erase(cell)
+	if type == TileTypes.Type.stone:
+		stones.erase(cell)
+	elif type == TileTypes.Type.tree_stump:
+		trees[cell]["sprite"].queue_free()
+		#trees.erase(cell)
+	enviorment_health_bar.queue_free()
+	enviorment_health_bar = null
+	env_bar_active = false
 
-func show_stone_health_bar(cell: Vector2i):
-	var data = stone[cell]
+func show_enviorment_health_bar(cell: Vector2i, health: float, type: TileTypes.Type):
+	var data
+
+	if type == TileTypes.Type.stone:
+		data = stones[cell]
+	elif type == TileTypes.Type.tree_stump:
+		data = trees[cell]
+	else:
+		return
 
 	# Already has a bar?
-	if data.bar != null:
-		return
-
 	enviorment_health_bar = ProgressBar.new()
 	enviorment_health_bar.min_value = 0
 	enviorment_health_bar.max_value = data.max_health
-	enviorment_health_bar.value = data.health
+	enviorment_health_bar.value = health
 	enviorment_health_bar.size = Vector2(20, 1)
 	enviorment_health_bar.modulate = Color.GREEN
 	enviorment_health_bar.show_percentage = false
 	var world_pos = infront_layer.map_to_local(floor_marker.get_marker_cell())
 	enviorment_health_bar.position = world_pos + Vector2(-10, -15)
-	enviorment_health_bar.z_index = 1
+	enviorment_health_bar.z_index = 99
 	enviorment_health_bar.scale = Vector2(1, 0.1)
 	add_child(enviorment_health_bar)
-	data.bar = enviorment_health_bar
+#endregion
+func get_data_for_type(cell: Vector2i, type: TileTypes.Type):
 
-func remove_health_bar(cell:Vector2i):
-
-	pass
+	if type == TileTypes.Type.stone && stones.has(cell):
+		return stones[cell]
+	elif type == TileTypes.Type.tree_stump && trees.has(cell):
+		return trees[cell]
+	else:
+		return

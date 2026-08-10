@@ -46,8 +46,13 @@ func load_all_tiles_from_res(biomeName: String):
 	for tile in tile_data:
 		GameManager.change_map_cell_no_save(tile.cell)
 
+
+
 	register_resource_tiles()
+
 	spawn_trees_from_stumps()
+
+
 
 func spawn_trees_from_stumps() -> void:
 	var tilemap_layer = $"../InFront"
@@ -66,9 +71,11 @@ func spawn_trees_from_stumps() -> void:
 			var pos = tilemap_layer.map_to_local(cell)
 
 			var tree = tree_scene.instantiate()
+
 			tree.position = pos
 
 			tilemap_layer.get_parent().add_child(tree)
+			GameManager.trees[cell]["sprite"]= tree
 
 			# Optional: clear the stump tile
 			# tilemap_layer.set_cell(cell, -1)
@@ -89,19 +96,22 @@ func register_resource_tiles():
 		match tile_type:
 			"tree_stump":
 				GameManager.trees[cell] = {
-					"max_health" : 200,
-					"health": 200,
+					"max_health" : 100,
+					"health": 100,
 					"type": "tree",
 					"bar" : null
 				}
 			"stone":
-				GameManager.stone[cell] = {
+				GameManager.stones[cell] = {
 					"max_health" : 100,
 					"health": 100,
 					"type": "rock",
 					"bar" : null
 				}
-
+	if GameManager.trees == null:
+		print("dict is null")
+	print("Trees found ", GameManager.trees.size())
+	print("Stones found ", GameManager.stones.size())
 
 
 

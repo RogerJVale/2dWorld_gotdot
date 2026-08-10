@@ -16,4 +16,4 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 func play_anim():
 	visible = true
 	$AnimatedSprite2D.play(animation_name)
-	$Slash.play("slash_l")
+	#$Slash.play("slash_l")

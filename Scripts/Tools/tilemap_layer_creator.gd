@@ -14,6 +14,9 @@ extends Node2D
 @export var grass_tilemap: TileMapLayer
 @export var dirt_tilemap: TileMapLayer
 @export var cliff_tilemap: TileMapLayer
+@export var infront_tilemap: TileMapLayer
+
+
 @export var sand_cap: float = -0.7
 @export var grass_cap: float = -0.0
 @export var dirt_cap: float = 0.5
@@ -24,13 +27,28 @@ extends Node2D
 		if value:
 			_create_tilemap_layers()
 		create_layers = false
-
 @export var create_base_world: bool = false:
 	set(value):
 		if value:
 			_create_base_tile_map()
 		create_layers = false;
+@export var spawn_resources: bool = false:
+	set(value):
+		if value:
+			_spawn_resources()
+		spawn_resources = false
+
+
 var noise_val = []
+
+var tree_stump_id : int = 0
+var tree_stump_atlas_pos : Vector2i = Vector2i(8,9)
+@export var tree_stump_max_spawn: int = 50
+
+var stone_id : int = 0
+var stone_atlas_pos : Vector2i = Vector2i(17,17)
+@export var stone_max_spawn: int = 50
+
 func _create_tilemap_layers():
 	print("Map generation Started")
 	if tileset == null:
@@ -96,25 +114,67 @@ func _create_base_tile_map():
 		for y in map_size.y:
 			var n = noise.get_noise_2d(x,y)
 			noise_val.append(n)
-
+			var cell : Vector2i = Vector2i(x,y)
 
 			if n >= sand_cap: #sand
-				if n > grass_cap:
-					cells_grass.append(Vector2(x,y))
-					if n > dirt_cap:
-						cells_dirt.append(Vector2(x,y))
-						if n > cliff_cap:
-							cells_cliff.append(Vector2(x,y))
-				cells_sand.append(Vector2(x,y))
+				cells_sand.append(cell)
+			if n > grass_cap:
+				cells_grass.append(cell)
+			if n > dirt_cap:
+				cells_dirt.append(cell)
+			if n > cliff_cap:
+				cells_cliff.append(cell)
+
 
 	ground_tilemap.set_cells_terrain_connect(cells_sand,0,0)
 	grass_tilemap.set_cells_terrain_connect(cells_grass,1,0)
 	dirt_tilemap.set_cells_terrain_connect(cells_dirt,2,0)
 	cliff_tilemap.set_cells_terrain_connect(cells_cliff, 3,0)
 
+	for cell in cells_dirt:
+		grass_tilemap.erase_cell(cell)
+	for cell in cells_cliff:
+		dirt_tilemap.erase_cell(cell)
 
 	print("generation Completed")
 	print("min _noise ", noise_val.min())
 	print("max noise", noise_val.max())
 	print("sand cells count ", cells_sand.size())
 	print("grass cells count ", cells_grass.size())
+
+func _spawn_resources():
+	# clear layer
+	for x in map_size.x:
+		for y in map_size.y:
+			infront_tilemap.set_cell(Vector2i(x,y), -1)
+
+	place_random_tiles(grass_tilemap, infront_tilemap, tree_stump_id, tree_stump_atlas_pos,tree_stump_max_spawn)
+	place_random_tiles(dirt_tilemap, infront_tilemap, stone_id, stone_atlas_pos,stone_max_spawn)
+
+
+func place_random_tiles(
+	source_layer: TileMapLayer,
+	target_layer: TileMapLayer,
+	tile_id: int,
+	atlas_pos: Vector2i,
+	max_amount: int
+):
+	# 1. Get all used cells from the source layer
+	var used := source_layer.get_used_cells()
+
+	if used.is_empty():
+		return
+
+	# 2. Shuffle the list so we get random positions
+	used.shuffle()
+
+	# 3. Limit to the maximum amount requested
+	var count = min(max_amount, used.size())
+
+	# 4. Place tiles on the target layer
+	for i in count:
+		var cell := used[i]
+		target_layer.set_cell(cell, tile_id, atlas_pos)
+
+func is_cell_used(layer: TileMapLayer, cell: Vector2i) -> bool:
+	return layer.get_cell_source_id(cell) != -1
