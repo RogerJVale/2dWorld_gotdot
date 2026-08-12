@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cdsmmjoffa35g" path="res://Scenes/Player/floor_marker.tscn" id="4_bm7dg"]
 [ext_resource type="PackedScene" uid="uid://jggiykxo3qne" path="res://Scenes/UI/mini_dialog.tscn" id="4_jl77m"]
 [ext_resource type="PackedScene" uid="uid://c0us35873s727" path="res://Scenes/UI/inventory.tscn" id="4_nf17q"]
+[ext_resource type="PackedScene" uid="uid://ddeu48r6fyelk" path="res://Scenes/UI/selection_wheel.tscn" id="6_6ojii"]
 
 [node name="Main" type="Node2D" unique_id=837822571]
 y_sort_enabled = true
@@ -60,6 +61,9 @@ offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
 inventory = NodePath("../Inventory")
+
+[node name="SelectionWheel" parent="CanvasLayer" unique_id=250188281 instance=ExtResource("6_6ojii")]
+visible = false
 
 [node name="FloorMarker" parent="." unique_id=1462664468 node_paths=PackedStringArray("player") instance=ExtResource("4_bm7dg")]
 position = Vector2(54, 32)

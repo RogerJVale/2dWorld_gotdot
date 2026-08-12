@@ -4,6 +4,7 @@ extends CharacterBody2D
 #ref to animated sprite
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var mini_dialog: CanvasLayer = $"../MiniDialog"
+@onready var selection_wheel: Control = $"../CanvasLayer/SelectionWheel"
 
 @export var marker: FloorMarker
 #Movement Speed
@@ -40,24 +41,32 @@ func _process(delta: float) -> void:
 	######################
 	# handle the tool input
 	######################
-	if Input.is_action_just_pressed("attack2"):
-		if GameManager.equipped_item == null:
-			mini_dialog.show_dialog("No Item Equipped", func(): mini_dialog.hide_dialog() )
-			return
-		#Debug
-		var tile_data = GameManager.getTileData(position, "Ground")
-		print("Player: tiledata = ", tile_data)
-		#Debug end
-		if GameManager.equipped_item.name == "Axe":
-			marker.show_marker("Axe")
-		elif GameManager.equipped_item.name == "Shovel":
-			marker.show_marker("Shovel")
-			GameManager.change_tile(target_cell)
-		elif GameManager.equipped_item.name == "Watering Can":
-			marker.show_marker("WateringCan")
-		elif GameManager.equipped_item.name == "pick":
-			marker.show_marker("Pick")
+	if GameManager.game_state == GameStates.GameState.PLAY:
+		if Input.is_action_just_pressed("attack2"):
+			if GameManager.equipped_item == null:
+				mini_dialog.show_dialog("No Item Equipped", func(): mini_dialog.hide_dialog() )
+				return
+			#Debug
+			var tile_data = GameManager.getTileData(position, "Ground")
+			print("Player: tiledata = ", tile_data)
+			#Debug end
+			if GameManager.equipped_item.name == "Axe":
+				marker.show_marker("Axe")
+			elif GameManager.equipped_item.name == "Shovel":
+				marker.show_marker("Shovel")
+				GameManager.change_tile(target_cell)
+			elif GameManager.equipped_item.name == "Watering Can":
+				marker.show_marker("WateringCan")
+			elif GameManager.equipped_item.name == "pick":
+				marker.show_marker("Pick")
 
+		if Input.is_action_just_pressed("selection_wheel"):
+				GameManager.game_state = GameStates.GameState.RADIAL_MENU
+				selection_wheel.show()
+	if GameManager.game_state == GameStates.GameState.RADIAL_MENU:
+		if Input.is_action_just_released("selection_wheel"):
+				selection_wheel.hide()
+				GameManager.game_state = GameStates.GameState.PLAY
 
 
 func _physics_process(delta: float) -> void:
@@ -80,26 +89,26 @@ func _physics_process(delta: float) -> void:
 
 #region  Movement
 func process_movement() -> void:
+	if GameManager.game_state == GameStates.GameState.PLAY:
+		if is_td:
+			# Top-down movement
+			direction = Input.get_vector("left", "right", "up", "down")
+			velocity = direction * speed
 
-	if is_td:
-		# Top-down movement
-		direction = Input.get_vector("left", "right", "up", "down")
-		velocity = direction * speed
+			if direction != Vector2.ZERO:
+				last_direction = direction
+				check_for_drop()
+				GameManager.check_enviorment()
+			#display_tile_data()
 
-		if direction != Vector2.ZERO:
-			last_direction = direction
-			check_for_drop()
-			GameManager.check_enviorment()
-		#display_tile_data()
+		else:
+			# Platformer movement (NO up/down input)
+			var x_input := Input.get_action_strength("right") - Input.get_action_strength("left")
+			velocity.x = x_input * speed
 
-	else:
-		# Platformer movement (NO up/down input)
-		var x_input := Input.get_action_strength("right") - Input.get_action_strength("left")
-		velocity.x = x_input * speed
-
-		# Only update last_direction when actually moving
-		if x_input != 0:
-			last_direction.x = x_input
+			# Only update last_direction when actually moving
+			if x_input != 0:
+				last_direction.x = x_input
 
 func process_jump():
 	if Input.is_action_just_pressed('jump'):

@@ -67,7 +67,7 @@ func show_tool_action(weapon_type: String, snapped_pos: Vector2):
 		$Sprite2D/AxeSwing.visible = true;
 		$Sprite2D/AxeSwing.play_anim()
 		player.play_attack_animation("2h_overswing")
-		GameManager.damage_stone(get_marker_cell(), 25, TileTypes.Type.tree_stump)
+		GameManager.damage_object(get_marker_cell(), 25, TileTypes.Type.tree_stump)
 	elif weapon_type == "Shovel" and data == TileTypes.Type.grass:
 		$Sprite2D/Shovel.visible = true;
 		$Sprite2D/Shovel.play_anim()

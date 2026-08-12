@@ -4,5 +4,6 @@ class_name  GameStates
 enum GameState {
 	PLAY,
 	INVENTORY,
-	HOTBAR
+	HOTBAR,
+	RADIAL_MENU
 }

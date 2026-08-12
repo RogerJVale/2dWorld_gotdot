@@ -13,8 +13,10 @@ class_name Drop
 
 func _ready():
 	sprite_2d.texture = item.icon
-	position = world_position
+	sprite_2d.scale = item.icon_scale
 
+	position = world_position
+	amount = 10
 
 	await get_tree().create_timer(lifetime).timeout
 	queue_free()

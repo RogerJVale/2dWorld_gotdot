@@ -12,6 +12,7 @@ script = ExtResource("1_yi0mv")
 item_id = "log"
 name = "Log"
 icon = SubResource("AtlasTexture_u44om")
+icon_scale = Vector2(0.1, 0.1)
 quantity = 10
 item_type = 1
 metadata/_custom_type_script = "uid://bibxsjhtbuxfc"

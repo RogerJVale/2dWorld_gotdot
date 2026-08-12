@@ -182,8 +182,10 @@ func toggle_lights():
 
 func store_drop(item: Item, amount: int):
 	var player_pos = _player.position
-	var drop : Node2D = spawn_drop(player_pos, item, amount)
-	var data = {"item":item, "amount":amount, "drop": drop}
+
+
+	var drop : Node2D = spawn_drop(player_pos, item)
+	var data = {"item":item, "amount": amount, "drop": drop}
 	dropped_items[player_pos] = data
 
 func remove_drop(drop_pos):
@@ -205,11 +207,10 @@ func check_for_drop_nearby(player_pos: Vector2):
 	if mini_dialog.visible:
 		mini_dialog.hide_dialog()
 
-func spawn_drop(player_pos: Vector2, item: Item, amount: int)-> Node2D:
+func spawn_drop(player_pos: Vector2, item: Item)-> Node2D:
 	var drop = preload("res://Scenes/WorldSprites/Drop/drop.tscn").instantiate()
 	drop.world_position = player_pos
 	drop.item = item
-	drop.amount = amount
 	add_child(drop)
 	return drop
 
@@ -260,22 +261,7 @@ func check_enviorment():
 		enviorment_health_bar = null
 		env_bar_active = false
 
-#func check_enviorment():
-	#var type: TileTypes.Type  = get_tile_data_at_marker_position("InFront")
-	#var current_cell = floor_marker.get_marker_cell()
-#
-	#if enviorment_health_bar:
-		#enviorment_health_bar.queue_free()
-	## Only remove the bar if the tile changed
-	#if enviorment_health_bar and enviorment_health_bar.position != infront_layer.map_to_local(current_cell) + Vector2(-10, -15):
-		#enviorment_health_bar.queue_free()
-#
-	#if type == TileTypes.Type.stone:
-		#show_enviorment_health_bar(current_cell, stones[current_cell]["health"], type)
-	#elif type == TileTypes.Type.tree_stump:
-		#show_enviorment_health_bar(current_cell, trees[current_cell]["health"], type)
-
-func damage_stone(cell: Vector2i, amount: int, type: TileTypes.Type):
+func damage_object(cell: Vector2i, amount: int, type: TileTypes.Type):
 	if !enviorment_health_bar:
 		return
 
@@ -303,12 +289,16 @@ func destroy_object(cell: Vector2i, type: TileTypes.Type):
 
 	var data = get_data_for_type(cell, type)
 	if data == null: return
+	match type:
 
-	if type == TileTypes.Type.stone:
-		stones.erase(cell)
-	elif type == TileTypes.Type.tree_stump:
-		trees[cell]["sprite"].queue_free()
-		#trees.erase(cell)
+		TileTypes.Type.stone:
+			stones.erase(cell)
+
+		TileTypes.Type.tree_stump:
+			trees[cell]["sprite"].queue_free()
+			var item : Item = load("res://Scripts/Inventory/Items/log.tres")
+			store_drop(item, 1)
+
 	enviorment_health_bar.queue_free()
 	enviorment_health_bar = null
 	env_bar_active = false

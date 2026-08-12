@@ -50,7 +50,7 @@ func _process(delta: float) -> void:
 #########################
 func add_item(new_item: Item, amount: int = 0) -> bool:
 
-	print("Adding ", new_item.name , " to inventory")
+	print("Adding ",amount, " ", new_item.name , " to inventory")
 	var qty: int
 	if amount == 0:
 		qty = new_item.quantity

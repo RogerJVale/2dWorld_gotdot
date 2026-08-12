@@ -21,7 +21,6 @@ color = Color(1, 0.20392157, 1, 1)
 
 [node name="Drop" type="Node2D" unique_id=940790550]
 z_index = 1
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1_geuwq")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=529982815]
