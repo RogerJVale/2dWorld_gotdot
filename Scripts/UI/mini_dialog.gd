@@ -2,32 +2,31 @@ extends CanvasLayer
 class_name MiniDialog
 @export var background_texture : Texture2D
 
+var _owner = null
 var callback: Callable = Callable()
 
 func _ready() -> void:
 	$Panel.visible = false;
+	GlobalSignals.show_mini_dialog.connect(show_dialog)
+	GlobalSignals.hide_mini_dialog.connect(hide_dialog)
 
-	return
-	var sb := StyleBoxTexture.new()
-	sb.texture = background_texture
-	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
-	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
-	sb.set_expand_margin(30,30)  # optional padding
-
-	$Panel.add_theme_stylebox_override("panel", sb)
-
-
-
-func show_dialog(text: String, on_confirm: Callable) -> void:
+func show_dialog(text: String, on_confirm: Callable, caller) -> void:
+	if _owner != null and _owner != caller:
+		return
+	_owner = caller
 	print("Called show dialog")
 	$Panel.visible = true
 	$Panel/Label.text = text
 	callback = on_confirm
 	set_process_input(true)
 
-func hide_dialog():
+func hide_dialog(caller):
+	if caller != _owner:
+		return
+	_owner = null
 	$Panel.visible = false
-
+	print("hide_dialog")
+	Utils.print_caller()
 
 func _input(event):
 	if $Panel.visible and event.is_action_pressed("interact"):

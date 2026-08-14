@@ -6,6 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://rjgahp2exsm0" path="res://Scenes/Weapons/axe_swing.tscn" id="3_45rsx"]
 [ext_resource type="PackedScene" uid="uid://dpkbuy8sxmoux" path="res://Scenes/Weapons/pick.tscn" id="3_yb0ls"]
 [ext_resource type="PackedScene" uid="uid://bbtl034ebb2v5" path="res://Scenes/Weapons/shovel.tscn" id="4_isuu6"]
+[ext_resource type="Texture2D" uid="uid://bivhybdegtd7b" path="res://Assets/Animated/Chest/Chests.png" id="7_cbju0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxwvi"]
+atlas = ExtResource("7_cbju0")
+region = Rect2(0, 9, 34.666626, 30)
 
 [node name="FloorMarker" type="Node2D" unique_id=1462664468 node_paths=PackedStringArray("marker")]
 z_index = 99
@@ -26,3 +31,7 @@ visible = false
 
 [node name="Shovel" parent="Sprite2D" unique_id=1763945035 instance=ExtResource("4_isuu6")]
 visible = false
+
+[node name="Chest" type="Sprite2D" parent="Sprite2D" unique_id=1063475496]
+visible = false
+texture = SubResource("AtlasTexture_gxwvi")

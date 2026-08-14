@@ -12,14 +12,15 @@ func _on_body_entered(body: Node2D) -> void:
 		var dialog = get_tree().current_scene.get_node("MiniDialog")
 		dialog.show_dialog(
 			"Press E to enter " + target_biome,
-			func(): SceneMagement.call_deferred("load_biome", target_biome)
+			func(): SceneMagement.call_deferred("load_biome", target_biome),
+			self
 		)
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		var dialog = get_tree().current_scene.get_node("MiniDialog")
-		dialog.hide_dialog()
+		dialog.hide_dialog(self)
 
 func position_player_on_arrival(player: CharacterBody2D):
-	print(player.name)
+	print("Player node ", player.name)
 	player.position = position

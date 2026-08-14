@@ -15,6 +15,13 @@ const SPRITE_SIZE = Vector2(64,64)
 
 
 @export var selection = 1
+
+
+
+func _ready() -> void:
+	if selection == null:
+		selection = 0
+
 func _draw():
 
 	var offset = SPRITE_SIZE / -2
@@ -78,7 +85,20 @@ func _draw():
 
 func _process(delta: float) -> void:
 	queue_redraw()
-	if GameManager.game_state == GameStates.GameState.RADIAL_MENU:
+	if Engine.is_editor_hint():
+		return
+	if GameManager.game_state == GameStates.GameState.PLAY\
+	or GameManager.game_state == GameStates.GameState.BUILDING:
+		if Input.is_action_just_pressed("selection_wheel"):
+					selection = 0
+					GameManager.game_state = GameStates.GameState.RADIAL_MENU
+					show()
+
+	if Input.is_action_just_released("selection_wheel"):
+		GlobalSignals.selection_wheel_changed.emit(selection)
+		hide()
+
+	if visible:
 		if Input.is_action_just_pressed("nav_right"):
 			selection += 1
 			if selection > len(options) -1:

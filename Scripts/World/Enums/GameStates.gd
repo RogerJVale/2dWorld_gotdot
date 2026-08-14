@@ -5,5 +5,7 @@ enum GameState {
 	PLAY,
 	INVENTORY,
 	HOTBAR,
-	RADIAL_MENU
+	RADIAL_MENU,
+	BUILDING,
+	CHEST
 }

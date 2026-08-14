@@ -8,20 +8,7 @@ extends Node2D
 func _ready() -> void:
 	SceneMagement.floor_marker = self
 
-#func _process(delta):
-	## 1. Player world position
-	#var player_pos: Vector2 = player.global_position
-#
-	## 2. Convert world → tile coordinate
-	#var cell: Vector2i = tile_layer.local_to_map(tile_layer.to_local(player_pos))
-#
-	## 3. Convert tile coordinate → snapped world position
-	#var snapped_pos: Vector2 = tile_layer.to_global(tile_layer.map_to_local(cell))
-	## 3a. snap to the tile center
-	##snapped_pos += tile_layer.tile_set.tile_size / 2.0
-#
-	## 4. Move marker
-	#marker.global_position = snapped_pos
+	GlobalSignals.hide_marker.connect(_hide_marker)
 
 func set_tilemaplayer(tml : TileMapLayer):
 
@@ -33,8 +20,15 @@ func show_marker(weapon_type: String):
 	#Move marker
 	global_position = snapped_pos
 	visible = true
-
+	if GameManager.game_state == GameStates.GameState.BUILDING:
+		$Sprite2D/Chest.show()
+		return
 	show_tool_action(weapon_type, snapped_pos)
+
+func _hide_marker():
+		hide()
+		Utils.hide_children($Sprite2D)
+
 
 func get_tile_data_at_marker_position(layer_name: String) -> TileTypes.Type:
 	return GameManager.getTileData(get_marker_position(),layer_name)
@@ -78,7 +72,8 @@ func show_tool_action(weapon_type: String, snapped_pos: Vector2):
 		$Sprite2D/Pick.visible = true;
 		$Sprite2D/Pick.play_anim()
 		player.play_attack_animation("2h_overswing")
-		GameManager.damage_stone(get_marker_cell(), 25, TileTypes.Type.stone)
+		GameManager.damage_object(get_marker_cell(), 25, TileTypes.Type.stone)
+
 	else:
 		## faile to do the correct task
 		await get_tree().create_timer(0.5).timeout

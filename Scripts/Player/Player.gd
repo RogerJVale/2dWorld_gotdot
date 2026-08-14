@@ -44,11 +44,11 @@ func _process(delta: float) -> void:
 	if GameManager.game_state == GameStates.GameState.PLAY:
 		if Input.is_action_just_pressed("attack2"):
 			if GameManager.equipped_item == null:
-				mini_dialog.show_dialog("No Item Equipped", func(): mini_dialog.hide_dialog() )
+				mini_dialog.show_dialog("No Item Equipped", func(): mini_dialog.hide_dialog(self),self )
 				return
 			#Debug
-			var tile_data = GameManager.getTileData(position, "Ground")
-			print("Player: tiledata = ", tile_data)
+			#var tile_data = GameManager.getTileData(position, "Ground")
+			#print("Player: tiledata = ", tile_data)
 			#Debug end
 			if GameManager.equipped_item.name == "Axe":
 				marker.show_marker("Axe")
@@ -59,14 +59,13 @@ func _process(delta: float) -> void:
 				marker.show_marker("WateringCan")
 			elif GameManager.equipped_item.name == "pick":
 				marker.show_marker("Pick")
+	if GameManager.game_state == GameStates.GameState.BUILDING:
+		marker.show_marker("Chest")
+		if Input.is_action_just_pressed("attack2"):
+			GlobalSignals.try_place_object.emit(marker.position, preload("res://Scripts/Inventory/Items/chest.tres"))
 
-		if Input.is_action_just_pressed("selection_wheel"):
-				GameManager.game_state = GameStates.GameState.RADIAL_MENU
-				selection_wheel.show()
-	if GameManager.game_state == GameStates.GameState.RADIAL_MENU:
-		if Input.is_action_just_released("selection_wheel"):
-				selection_wheel.hide()
-				GameManager.game_state = GameStates.GameState.PLAY
+		if Input.is_action_just_released("attack2"):
+			print("Should place chest !")
 
 
 func _physics_process(delta: float) -> void:
@@ -89,7 +88,8 @@ func _physics_process(delta: float) -> void:
 
 #region  Movement
 func process_movement() -> void:
-	if GameManager.game_state == GameStates.GameState.PLAY:
+	if GameManager.game_state == GameStates.GameState.PLAY \
+	or GameManager.game_state == GameStates.GameState.BUILDING:
 		if is_td:
 			# Top-down movement
 			direction = Input.get_vector("left", "right", "up", "down")

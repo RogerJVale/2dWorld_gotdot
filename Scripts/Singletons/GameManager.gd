@@ -3,6 +3,7 @@ extends Node2D
 @export var stones := {}
 @export var trees := {}
 @export var plants := {}
+@export var placed_objects: Dictionary[Vector2i, PlacedObjectData] = {}
 
 
 @export var game_state: GameStates.GameState = GameStates.GameState.PLAY
@@ -26,11 +27,18 @@ var equipped_item: Item
 
 
 func _ready() -> void:
+
+	GlobalSignals.selection_wheel_changed.connect(_on_selection_wheel_changed)
+	GlobalSignals.try_place_object.connect(_on_try_place_object)
+
+
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var main = get_tree().get_root().get_node("Main")
 	floor_marker = main.get_node("FloorMarker")
 	mini_dialog = main.get_node("MiniDialog")
 	inventory = main.get_node("CanvasLayer/Inventory")
+
+
 
 func _process(delta: float) -> void:
 
@@ -52,6 +60,7 @@ func register_player(player: CharacterBody2D):
 
 	infront_layer = SceneMagement.current_biome.get_node("InFront")
 
+	load_building_data()
 func set_2D_Platform():
 	_player.enable_platformer_controls()
 
@@ -199,13 +208,13 @@ func check_for_drop_nearby(player_pos: Vector2):
 		if player_pos.distance_to(drop_pos) < 20:
 			mini_dialog.show_dialog("E to pickup",
 							func():
-							mini_dialog.hide_dialog()
+							mini_dialog.hide_dialog(self)
 							pickup_drop(dropped_items.get(drop_pos))
-							remove_drop(drop_pos)
+							remove_drop(drop_pos),
+							self
 							)
 			return
-	if mini_dialog.visible:
-		mini_dialog.hide_dialog()
+	mini_dialog.hide_dialog(self)
 
 func spawn_drop(player_pos: Vector2, item: Item)-> Node2D:
 	var drop = preload("res://Scenes/WorldSprites/Drop/drop.tscn").instantiate()
@@ -276,7 +285,7 @@ func damage_object(cell: Vector2i, amount: int, type: TileTypes.Type):
 
 
 	data.health -= amount
-	print("data health", data.health)
+	#print("data health", data.health)
 
 	# Update bar
 	enviorment_health_bar.value = data.health
@@ -327,6 +336,83 @@ func show_enviorment_health_bar(cell: Vector2i, health: float, type: TileTypes.T
 	enviorment_health_bar.scale = Vector2(1, 0.1)
 	add_child(enviorment_health_bar)
 #endregion
+
+######################
+## Signal Handlewrs
+######################
+func _on_selection_wheel_changed(selection):
+	if selection == 0:
+		game_state = GameStates.GameState.PLAY
+		GlobalSignals.hide_marker.emit()
+	elif selection == 1:
+		game_state = GameStates.GameState.BUILDING
+	elif selection == 2:
+		game_state = GameStates.GameState.PLAY
+		GlobalSignals.hide_marker.emit()
+
+	elif selection == 3:
+		game_state = GameStates.GameState.PLAY
+		GlobalSignals.hide_marker.emit()
+####################
+## Building
+####################
+func _on_try_place_object(pos: Vector2, item: Item):
+
+	var obj = item.prefab.instantiate()
+	obj.global_position = pos
+	get_tree().current_scene.add_child(obj)
+
+	var inventory_id = null
+	var cell = infront_layer.local_to_map(pos)
+	var object_id = item.item_id
+
+
+	var data := PlacedObjectData.new()
+	data.cell = cell
+	data.item = item   # ← YES, THIS WORKS
+	data.obj_id = Utils.generate_uuid()
+	placed_objects[cell] = data
+
+func save_building_data():
+	var save := WorldSave.new()
+	save.placed_objects = placed_objects
+	ResourceSaver.save(save, "user://WorldSaveData.tres")
+
+func load_building_data():
+	if ResourceLoader.exists("user://WorldSaveData.tres"):
+		var save: WorldSave = ResourceLoader.load("user://WorldSaveData.tres")
+		placed_objects = save.placed_objects
+
+	for cell in placed_objects.keys():
+		var data: PlacedObjectData = placed_objects[cell]
+		spawn_object(cell, data)
+
+func spawn_object(cell: Vector2i, data: PlacedObjectData):
+	var scene:= data.item.prefab
+	var obj = scene.instantiate()
+
+	# convert cell to world position
+	var world_pos = infront_layer.map_to_local(cell)
+	obj.position = world_pos
+	obj.scale = data.item.icon_scale
+
+	# apply rotation or other saved properties
+	obj.rotation = data.rotation
+	if obj.has_method("set_id"):
+		obj.set_id(data.obj_id)
+	add_child(obj)
+####################
+# Saving
+####################
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		save_building_data()
+
+func _exit_tree():
+	save_building_data()
+####################
+##
+####################
 func get_data_for_type(cell: Vector2i, type: TileTypes.Type):
 
 	if type == TileTypes.Type.stone && stones.has(cell):

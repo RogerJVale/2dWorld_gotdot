@@ -64,6 +64,7 @@ inventory = NodePath("../Inventory")
 
 [node name="SelectionWheel" parent="CanvasLayer" unique_id=250188281 instance=ExtResource("6_6ojii")]
 visible = false
+selection = null
 
 [node name="FloorMarker" parent="." unique_id=1462664468 node_paths=PackedStringArray("player") instance=ExtResource("4_bm7dg")]
 position = Vector2(54, 32)

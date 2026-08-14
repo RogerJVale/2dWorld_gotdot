@@ -28,7 +28,7 @@ func highlight():
 	$Highlight.modulate = Color.YELLOW
 
 func update_counter(amount: int):
-	print("updating counter ", amount)
+
 	if amount < 2:
 		$Counter.hide()
 	else:

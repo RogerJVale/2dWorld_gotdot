@@ -952,6 +952,7 @@ height = 16.0
 [node name="Player" type="CharacterBody2D" unique_id=571472417]
 z_index = 15
 y_sort_enabled = true
+collision_mask = 2
 script = ExtResource("1_epypp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1496544730]

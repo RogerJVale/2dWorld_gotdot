@@ -17,6 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Utils="*uid://c3ntcgvw213nr"
+GlobalSignals="*uid://dyt36ayo1bumw"
 SceneMagement="*uid://c4fqn5sv7u4uu"
 GameManager="*uid://cppvgvtq6dygp"
 Console="*uid://ouiu5xh1cs8n"

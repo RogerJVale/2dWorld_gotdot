@@ -48,7 +48,7 @@ func add_item(data) -> bool:
 
 			if i == current_slot:
 				update_current_item()
-
+			save_hotbar()
 			return true
 
 	return false
@@ -72,6 +72,8 @@ func remove_item(index: int):
 	else:
 		print("Inventory full — drop on floor TODO")
 
+	save_hotbar()
+
 func swap_slots(a: int, b: int):
 	if a < 0 or a >= slots.size():
 		return
@@ -90,10 +92,10 @@ func update_current_item():
 	highlight_slot(current_slot)
 	GameManager.equipped_item = selected_item
 
-	if selected_item:
-		print("Selected:", selected_item.name)
-	else:
-		print("Slot empty")
+	#if selected_item:
+		#print("Selected:", selected_item.name)
+	#else:
+		#print("Slot empty")
 
 func highlight_slot(index):
 	for i in slots.size():
@@ -138,11 +140,3 @@ func load_hotbar():
 
 	update_current_item()
 	print("Hotbar loaded")
-
-
-func _notification(what):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		save_hotbar()
-
-func _exit_tree():
-	save_hotbar()

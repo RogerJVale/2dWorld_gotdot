@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bic04trlr12ua"]
+
+[ext_resource type="Script" uid="uid://d2sh0e2tyolh2" path="res://Scripts/Weapons/Buildables/chest.gd" id="1_423jr"]
+[ext_resource type="Texture2D" uid="uid://bivhybdegtd7b" path="res://Assets/Animated/Chest/Chests.png" id="1_ew1bp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxwvi"]
+size = Vector2(25.5, 31.578125)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxwvi"]
+atlas = ExtResource("1_ew1bp")
+region = Rect2(0, 9, 30.666626, 26)
+
+[node name="Chest" type="Area2D" unique_id=1954748546]
+z_index = 14
+collision_layer = 2
+script = ExtResource("1_423jr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=57362559]
+position = Vector2(1.25, 26.210938)
+shape = SubResource("RectangleShape2D_gxwvi")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1519353122]
+position = Vector2(0, 0.421875)
+texture = SubResource("AtlasTexture_gxwvi")

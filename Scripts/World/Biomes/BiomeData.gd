@@ -110,8 +110,8 @@ func register_resource_tiles():
 				}
 	if GameManager.trees == null:
 		print("dict is null")
-	print("Trees found ", GameManager.trees.size())
-	print("Stones found ", GameManager.stones.size())
+	#print("Trees found ", GameManager.trees.size())
+	#print("Stones found ", GameManager.stones.size())
 
 
 

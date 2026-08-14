@@ -9,7 +9,7 @@ func _ready() -> void:
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	print("Animation Finished")
+	#print("Animation Finished")
 	visible = false
 	$"../..".visible = false
 
