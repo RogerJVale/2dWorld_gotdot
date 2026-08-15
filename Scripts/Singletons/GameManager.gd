@@ -23,7 +23,7 @@ var minutes : float = 0
 
 
 var equipped_item: Item
-
+var world_size
 
 
 func _ready() -> void:
@@ -59,6 +59,7 @@ func register_player(player: CharacterBody2D):
 	SceneMagement.load_biome("grass_biome");
 
 	infront_layer = SceneMagement.current_biome.get_node("InFront")
+	world_size = _calculate_world_size()
 
 	load_building_data()
 func set_2D_Platform():
@@ -421,3 +422,8 @@ func get_data_for_type(cell: Vector2i, type: TileTypes.Type):
 		return trees[cell]
 	else:
 		return
+func _calculate_world_size():
+	var used = infront_layer.get_used_rect()
+	var tile_size = infront_layer.tile_set.tile_size
+	world_size = used.size * tile_size
+	GameManager.world_size = world_size

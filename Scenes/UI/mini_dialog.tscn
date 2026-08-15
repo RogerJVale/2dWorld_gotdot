@@ -1,28 +1,35 @@
 [gd_scene format=3 uid="uid://jggiykxo3qne"]
 
 [ext_resource type="Script" uid="uid://bdle63fh2fhje" path="res://Scripts/UI/mini_dialog.gd" id="1_x0kmm"]
+[ext_resource type="Texture2D" uid="uid://cguicrtg87a1o" path="res://Assets/UI/rpg-ui/UI assets (3x).png" id="2_147vn"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0kmm"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(0.196464, 0.11183856, 0.010984003, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-corner_detail = 5
+[sub_resource type="AtlasTexture" id="AtlasTexture_vh236"]
+atlas = ExtResource("2_147vn")
+region = Rect2(867, 210, 138, 51)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j4bll"]
+content_margin_left = 30.0
+content_margin_top = 10.0
+content_margin_right = 36.0
+content_margin_bottom = 14.0
+texture = SubResource("AtlasTexture_vh236")
 
 [node name="MiniDialog" type="CanvasLayer" unique_id=1138957328]
 script = ExtResource("1_x0kmm")
 
 [node name="Panel" type="PanelContainer" parent="." unique_id=1664260580]
-offset_right = 111.0
-offset_bottom = 34.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_x0kmm")
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -960.0
+offset_right = -789.0
+offset_bottom = 58.0
+grow_horizontal = 2
+size_flags_stretch_ratio = 1.65
+theme_override_styles/panel = SubResource("StyleBoxTexture_j4bll")
 
 [node name="Label" type="Label" parent="Panel" unique_id=374340661]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24
-text = "Test Text "
+text = "Test Text"

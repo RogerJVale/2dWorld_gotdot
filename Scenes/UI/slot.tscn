@@ -1,33 +1,49 @@
 [gd_scene format=3 uid="uid://b7e4uqfvkssy7"]
 
 [ext_resource type="Script" uid="uid://cqes062654sb" path="res://Scripts/Inventory/slot.gd" id="1_gswik"]
+[ext_resource type="Texture2D" uid="uid://cguicrtg87a1o" path="res://Assets/UI/rpg-ui/UI assets (3x).png" id="2_gswik"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ic2qw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxwvi"]
+atlas = ExtResource("2_gswik")
+region = Rect2(450, 18, 108, 108)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4bll"]
+atlas = ExtResource("2_gswik")
+region = Rect2(729, 9, 126, 126)
 
 [node name="Slot" type="Panel" unique_id=1416052683]
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ic2qw")
 script = ExtResource("1_gswik")
 
-[node name="Highlight" type="ColorRect" parent="." unique_id=1112365762]
+[node name="background" type="TextureRect" parent="." unique_id=1846402329]
+custom_minimum_size = Vector2(80, 80)
+custom_maximum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -35.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_gxwvi")
+
+[node name="Highlight" type="TextureRect" parent="." unique_id=280868841]
+visible = false
 custom_minimum_size = Vector2(80, 80)
 custom_maximum_size = Vector2(80, 80)
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 80.0
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1924137484]
-custom_minimum_size = Vector2(70, 70)
-custom_maximum_size = Vector2(70, 70)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = -5.0
-offset_bottom = -5.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.9356429, 0.92374027, 0.99827343, 1)
+texture = SubResource("AtlasTexture_j4bll")
 
 [node name="Icon" type="TextureRect" parent="." unique_id=1826397994]
 z_index = 1

@@ -7,5 +7,6 @@ enum GameState {
 	HOTBAR,
 	RADIAL_MENU,
 	BUILDING,
-	CHEST
+	CHEST,
+	CRAFTING
 }

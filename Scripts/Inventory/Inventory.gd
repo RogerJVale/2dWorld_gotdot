@@ -26,11 +26,14 @@ var active_current_slot: int
 #debug
 @export var test_item: Item
 
-@onready var inventory_grid_container: GridContainer = $InventoryGridContainer
-@onready var chest_grid_container: GridContainer = $ChestGridContainer
+@onready var inventory_grid_container: GridContainer = $BookPanelContainer/HSplitContainer/LeftPagePanel/InventoryGridContainer
+@onready var chest_grid_container: GridContainer = $BookPanelContainer/HSplitContainer/RightPagePanel/ChestGridContainer
+@onready var book_panel_container: PanelContainer = $BookPanelContainer
+@onready var crafting: Node2D = $BookPanelContainer/HSplitContainer/RightPagePanel/Crafting
 
 func _ready():
 	GlobalSignals.open_chest_inventory.connect(_on_open_chest)
+	GlobalSignals.open_crafting_menu.connect(_on_open_crafting_menu)
 
 	slots = []
 	for child: Slot in inventory_grid_container.get_children():
@@ -60,7 +63,7 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("nav_down"):
 
 			# Chest is open → swap between inventory and chest
-			if $ChestGridContainer.visible:
+			if $PanelContainer/HSplitContainer/Panel2/ChestGridContainer.visible:
 
 				if chest_active:
 					# Chest → Inventory
@@ -81,7 +84,7 @@ func _process(delta: float) -> void:
 			if chest_active:
 
 				move_selected_item_from_chest_to_inventory()
-			elif $ChestGridContainer.visible:
+			elif $PanelContainer/HSplitContainer/Panel2/ChestGridContainer.visible:
 
 				move_selected_item_to_chest()
 			else:
@@ -223,10 +226,12 @@ func load_inventory(id, target_array):
 ############################
 # Chest
 ###########################
+#region Chest
 func _on_open_chest(id: String):
 	chest_id = id
 	print("opeing chest id : ", chest_id)
 	chest_active = true
+	book_panel_container.visible = true
 	inventory_grid_container.show()
 	chest_grid_container.show()
 
@@ -322,6 +327,7 @@ func move_selected_item_from_chest_to_inventory():
 		print("Inventory full — cannot move item")
 
 func drop_chest_item():
+#endregion
 	var index := active_current_slot
 	var data = chest_items[index]
 	var item = data["item"]
@@ -331,6 +337,12 @@ func drop_chest_item():
 	# Remove from chest
 	chest_items[index] = null
 	refresh_chest_slot(index)
+###########################
+## Crafting
+###########################
+func _on_open_crafting_menu():
+	crafting.show()
+	toggle_inventory()
 
 ############################
 ## Navigation
@@ -357,18 +369,22 @@ func highlight_active_slot(index):
 	active_slots[index].highlight()
 
 func toggle_inventory():
-	if $InventoryGridContainer.visible:
-		$InventoryGridContainer.visible = false
+	if inventory_grid_container.visible:
+		inventory_grid_container.visible = false
+
 		GameManager.game_state = GameStates.GameState.PLAY
 		save_inventory(inventory_id, items)
-		if $ChestGridContainer.visible:
-			$ChestGridContainer.hide()
+		if chest_grid_container.visible:
+			chest_grid_container.hide()
 			_on_close_chest()
+		if crafting.visible:
+			crafting.hide()
 	else:
-		$InventoryGridContainer.visible = true
+		inventory_grid_container.visible = true
 		set_inventory_active()
 		GameManager.game_state = GameStates.GameState.INVENTORY
 
+	book_panel_container.visible = inventory_grid_container.visible
 func add_items_to_inventory():
 	add_item(preload("res://Scripts/Inventory/Items/axe.tres"))
 	add_item(preload("res://Scripts/Inventory/Items/pick.tres"))

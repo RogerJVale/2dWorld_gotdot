@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dhhughxytnau4" path="res://Assets/Actor/Witch/Walk/walk_l.png" id="7_ji083"]
 [ext_resource type="Texture2D" uid="uid://05jr08ykct7u" path="res://Assets/Actor/Witch/Walk/walk_r.png" id="8_0kmp4"]
 [ext_resource type="Texture2D" uid="uid://cw1smh31bxrxh" path="res://Assets/Actor/Witch/Walk/walk_b.png" id="9_i5acl"]
+[ext_resource type="Script" uid="uid://b0oulmvr644y7" path="res://Scripts/Player/camera_2d.gd" id="14_0u84n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_femxh"]
 atlas = ExtResource("2_0u84n")
@@ -960,8 +961,9 @@ scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_gxwvi")
 animation = &"2h_overswing_up"
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=449589819]
-zoom = Vector2(3.85, 3.85)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=493789983]
 shape = SubResource("CapsuleShape2D_j4bll")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1542934896]
+zoom = Vector2(3, 3)
+script = ExtResource("14_0u84n")

@@ -16,6 +16,7 @@ var is_grounded : bool
 var is_attacking = false;
 var last_direction: Vector2 = Vector2.RIGHT
 var direction: Vector2
+var world_size: Vector2 = Vector2.ZERO
 # platform vars
 const jump_height: float = -350
 var _gravity: float = 980
@@ -36,6 +37,8 @@ func _ready() -> void:
 func register_player()->void:
 	SceneMagement.player = self
 	GameManager.register_player(self)
+	$"Camera2D".setup()
+	world_size = Utils.calculate_world_size(GameManager.infront_layer)
 
 func _process(delta: float) -> void:
 	######################
@@ -71,13 +74,11 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 
 	process_movement()
-
 	process_animation()
+	#if we are side scrolling
 	if !is_td:
 		process_jump()
 		process_gravity(delta)
-
-
 
 	move_and_slide()
 
@@ -100,7 +101,7 @@ func process_movement() -> void:
 				check_for_drop()
 				GameManager.check_enviorment()
 			#display_tile_data()
-
+			_clamp_player()
 		else:
 			# Platformer movement (NO up/down input)
 			var x_input := Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -109,6 +110,14 @@ func process_movement() -> void:
 			# Only update last_direction when actually moving
 			if x_input != 0:
 				last_direction.x = x_input
+
+func _clamp_player():
+	var min_x = 0
+	var max_x = world_size.x
+	var min_y = 0
+	var max_y = world_size.y
+	global_position.x = clamp(global_position.x, min_x, max_x)
+	global_position.y = clamp(global_position.y, min_y, max_y)
 
 func process_jump():
 	if Input.is_action_just_pressed('jump'):

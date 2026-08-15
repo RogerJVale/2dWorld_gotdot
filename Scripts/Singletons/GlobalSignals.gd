@@ -18,3 +18,6 @@ signal close_chest()
 
 signal open_inventory()
 signal open_chest_inventory(id:String)
+
+signal open_crafting_menu()
+signal close_crafting_menu()

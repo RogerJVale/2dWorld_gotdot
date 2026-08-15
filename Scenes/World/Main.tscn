@@ -36,13 +36,11 @@ script = ExtResource("1_bm7dg")
 overlay = NodePath("../CanvasLayer2/ColorRect")
 lbl = NodePath("../CanvasLayer2/Label")
 
+[node name="MiniDialog" parent="." unique_id=1138957328 instance=ExtResource("4_jl77m")]
+
 [node name="Player" parent="." unique_id=571472417 node_paths=PackedStringArray("marker") instance=ExtResource("2_4narx")]
 position = Vector2(288, 184)
 marker = NodePath("../FloorMarker")
-
-[node name="MiniDialog" parent="." unique_id=1138957328 instance=ExtResource("4_jl77m")]
-offset = Vector2(500, 250)
-transform = Transform2D(1, 0, 0, 1, 500, 250)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1798767688]
 
@@ -64,7 +62,7 @@ inventory = NodePath("../Inventory")
 
 [node name="SelectionWheel" parent="CanvasLayer" unique_id=250188281 instance=ExtResource("6_6ojii")]
 visible = false
-selection = null
+selection = 0
 
 [node name="FloorMarker" parent="." unique_id=1462664468 node_paths=PackedStringArray("player") instance=ExtResource("4_bm7dg")]
 position = Vector2(54, 32)

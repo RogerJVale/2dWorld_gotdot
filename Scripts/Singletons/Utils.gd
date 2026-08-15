@@ -27,3 +27,9 @@ func generate_random_string(length := 8) -> String:
 	for i in length:
 		result += chars[randi() % chars.length()]
 	return result
+
+## Returns the world size given a tilemap
+func calculate_world_size(tilemap_layer: TileMapLayer)->Vector2:
+	var used = tilemap_layer.get_used_rect()
+	var tile_size = tilemap_layer.tile_set.tile_size
+	return used.size * tile_size

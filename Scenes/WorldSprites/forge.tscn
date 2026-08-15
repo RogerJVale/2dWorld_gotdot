@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bq0ojren2f3il"]
+
+[ext_resource type="Script" uid="uid://dv0y08yytjqtg" path="res://Scripts/WorldSprites/forge.gd" id="1_v4g6l"]
+[ext_resource type="Texture2D" uid="uid://75ypbix5euw3" path="res://Assets/Tilesets/TilesetHouse.png" id="2_ev8hb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4bll"]
+atlas = ExtResource("2_ev8hb")
+region = Rect2(496.92596, 198.09537, 31.074036, 41.454956)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxwvi"]
+size = Vector2(27, 29)
+
+[node name="Forge" type="Area2D" unique_id=1175310638]
+script = ExtResource("1_v4g6l")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=381936289]
+texture = SubResource("AtlasTexture_j4bll")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=222986731]
+position = Vector2(-0.5, 19.5)
+shape = SubResource("RectangleShape2D_gxwvi")

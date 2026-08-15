@@ -2,6 +2,37 @@
 
 [ext_resource type="PackedScene" uid="uid://b7e4uqfvkssy7" path="res://Scenes/UI/slot.tscn" id="1_3n7vm"]
 [ext_resource type="Script" uid="uid://cfv3ransngr4d" path="res://Scripts/Inventory/Inventory.gd" id="1_dt15g"]
+[ext_resource type="Texture2D" uid="uid://cguicrtg87a1o" path="res://Assets/UI/rpg-ui/UI assets (3x).png" id="2_osrsm"]
+[ext_resource type="PackedScene" uid="uid://cwewju407gjfc" path="res://Scenes/UI/crafting.tscn" id="4_ic2qw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4bll"]
+atlas = ExtResource("2_osrsm")
+region = Rect2(33, 2403.36, 702, 474)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gxwvi"]
+texture = SubResource("AtlasTexture_j4bll")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gxwvi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_osrsm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j4bll"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ic2qw"]
+atlas = ExtResource("2_osrsm")
+region = Rect2(1695, 2472, 63, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vh236"]
+atlas = ExtResource("2_osrsm")
+region = Rect2(300, 2175, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyv02"]
+atlas = ExtResource("2_osrsm")
+region = Rect2(1791, 2472, 63, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxwvi"]
+atlas = ExtResource("2_osrsm")
+region = Rect2(1983, 2472, 63, 48)
 
 [node name="Inventory" type="Control" unique_id=479569285]
 layout_mode = 3
@@ -12,7 +43,99 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dt15g")
 
-[node name="InventoryGridContainer" type="GridContainer" parent="." unique_id=536296852]
+[node name="BookPanelContainer" type="PanelContainer" parent="." unique_id=1004374937]
+visible = false
+custom_minimum_size = Vector2(1068.525, 500)
+custom_maximum_size = Vector2(1057.765, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = -82.0
+offset_right = 208.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_gxwvi")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="BookPanelContainer" unique_id=855322545]
+custom_minimum_size = Vector2(3.495, 0)
+custom_maximum_size = Vector2(900, -1)
+layout_mode = 2
+size_flags_stretch_ratio = 0.92
+offset_transform_enabled = true
+offset_transform_position = Vector2(70.02, 48.625)
+
+[node name="LeftPagePanel" type="Panel" parent="BookPanelContainer/HSplitContainer" unique_id=167211154]
+custom_minimum_size = Vector2(500, 0)
+custom_maximum_size = Vector2(421.01, -1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gxwvi")
+
+[node name="InventoryGridContainer" type="GridContainer" parent="BookPanelContainer/HSplitContainer/LeftPagePanel" unique_id=536296852]
+visible = false
+layout_mode = 0
+offset_right = 416.0
+offset_bottom = 500.0
+columns = 5
+
+[node name="Slot" parent="BookPanelContainer/HSplitContainer/LeftPagePanel/InventoryGridContainer" unique_id=1416052683 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot2" parent="BookPanelContainer/HSplitContainer/LeftPagePanel/InventoryGridContainer" unique_id=549506220 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot3" parent="BookPanelContainer/HSplitContainer/LeftPagePanel/InventoryGridContainer" unique_id=559694685 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot4" parent="BookPanelContainer/HSplitContainer/LeftPagePanel/InventoryGridContainer" unique_id=693405023 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot5" parent="BookPanelContainer/HSplitContainer/LeftPagePanel/InventoryGridContainer" unique_id=482834818 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot6" parent="BookPanelContainer/HSplitContainer/LeftPagePanel/InventoryGridContainer" unique_id=285136354 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot7" parent="BookPanelContainer/HSplitContainer/LeftPagePanel/InventoryGridContainer" unique_id=464273541 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot8" parent="BookPanelContainer/HSplitContainer/LeftPagePanel/InventoryGridContainer" unique_id=836529670 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot9" parent="BookPanelContainer/HSplitContainer/LeftPagePanel/InventoryGridContainer" unique_id=866747651 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Slot10" parent="BookPanelContainer/HSplitContainer/LeftPagePanel/InventoryGridContainer" unique_id=2045974169 instance=ExtResource("1_3n7vm")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BookPanelContainer/HSplitContainer/LeftPagePanel" unique_id=1737254467]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -37.5
+offset_top = -28.26
+offset_right = 37.5
+offset_bottom = -5.26
+grow_horizontal = 2
+text = "Inventory"
+
+[node name="RightPagePanel" type="Panel" parent="BookPanelContainer/HSplitContainer" unique_id=2134343686]
+custom_minimum_size = Vector2(400, 0)
+custom_maximum_size = Vector2(400, -1)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(11.935, 0)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_osrsm")
+
+[node name="Crafting" parent="BookPanelContainer/HSplitContainer/RightPagePanel" unique_id=104021827 instance=ExtResource("4_ic2qw")]
+visible = false
+
+[node name="ChestGridContainer" type="GridContainer" parent="BookPanelContainer/HSplitContainer/RightPagePanel" unique_id=1711595861]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -20,83 +143,133 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -571.0
-offset_top = -281.0
-offset_right = -155.0
-offset_bottom = -117.0
+offset_left = -208.0
+offset_top = -250.0
+offset_right = 208.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(5.485, 0)
 columns = 5
 
-[node name="Slot" parent="InventoryGridContainer" unique_id=1416052683 instance=ExtResource("1_3n7vm")]
+[node name="Slot" parent="BookPanelContainer/HSplitContainer/RightPagePanel/ChestGridContainer" unique_id=1818177197 instance=ExtResource("1_3n7vm")]
 layout_mode = 2
 
-[node name="Slot2" parent="InventoryGridContainer" unique_id=549506220 instance=ExtResource("1_3n7vm")]
+[node name="Slot2" parent="BookPanelContainer/HSplitContainer/RightPagePanel/ChestGridContainer" unique_id=20746111 instance=ExtResource("1_3n7vm")]
 layout_mode = 2
 
-[node name="Slot3" parent="InventoryGridContainer" unique_id=559694685 instance=ExtResource("1_3n7vm")]
+[node name="Slot3" parent="BookPanelContainer/HSplitContainer/RightPagePanel/ChestGridContainer" unique_id=1511566941 instance=ExtResource("1_3n7vm")]
 layout_mode = 2
 
-[node name="Slot4" parent="InventoryGridContainer" unique_id=693405023 instance=ExtResource("1_3n7vm")]
+[node name="Slot4" parent="BookPanelContainer/HSplitContainer/RightPagePanel/ChestGridContainer" unique_id=1782173083 instance=ExtResource("1_3n7vm")]
 layout_mode = 2
 
-[node name="Slot5" parent="InventoryGridContainer" unique_id=482834818 instance=ExtResource("1_3n7vm")]
+[node name="Slot5" parent="BookPanelContainer/HSplitContainer/RightPagePanel/ChestGridContainer" unique_id=1496782693 instance=ExtResource("1_3n7vm")]
 layout_mode = 2
 
-[node name="Slot6" parent="InventoryGridContainer" unique_id=285136354 instance=ExtResource("1_3n7vm")]
+[node name="Slot6" parent="BookPanelContainer/HSplitContainer/RightPagePanel/ChestGridContainer" unique_id=1705031955 instance=ExtResource("1_3n7vm")]
 layout_mode = 2
 
-[node name="Slot7" parent="InventoryGridContainer" unique_id=464273541 instance=ExtResource("1_3n7vm")]
+[node name="Slot7" parent="BookPanelContainer/HSplitContainer/RightPagePanel/ChestGridContainer" unique_id=1055457771 instance=ExtResource("1_3n7vm")]
 layout_mode = 2
 
-[node name="Slot8" parent="InventoryGridContainer" unique_id=836529670 instance=ExtResource("1_3n7vm")]
+[node name="Slot8" parent="BookPanelContainer/HSplitContainer/RightPagePanel/ChestGridContainer" unique_id=1144577199 instance=ExtResource("1_3n7vm")]
 layout_mode = 2
 
-[node name="Slot9" parent="InventoryGridContainer" unique_id=866747651 instance=ExtResource("1_3n7vm")]
+[node name="Slot9" parent="BookPanelContainer/HSplitContainer/RightPagePanel/ChestGridContainer" unique_id=1563547805 instance=ExtResource("1_3n7vm")]
 layout_mode = 2
 
-[node name="Slot10" parent="InventoryGridContainer" unique_id=2045974169 instance=ExtResource("1_3n7vm")]
+[node name="Slot10" parent="BookPanelContainer/HSplitContainer/RightPagePanel/ChestGridContainer" unique_id=677455931 instance=ExtResource("1_3n7vm")]
 layout_mode = 2
 
-[node name="ChestGridContainer" type="GridContainer" parent="." unique_id=1711595861]
-visible = false
+[node name="Heading" type="Label" parent="BookPanelContainer/HSplitContainer/RightPagePanel" unique_id=2086678220]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -440.0
-offset_top = 50.0
-offset_right = -24.0
-offset_bottom = 214.0
-grow_horizontal = 0
-columns = 5
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.686996
+offset_top = -29.985
+offset_right = 40.688004
+offset_bottom = -6.9850006
+grow_horizontal = 2
+text = "Chest"
 
-[node name="Slot" parent="ChestGridContainer" unique_id=1818177197 instance=ExtResource("1_3n7vm")]
+[node name="Tabs Panel" type="Panel" parent="BookPanelContainer" unique_id=1207491924]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_j4bll")
 
-[node name="Slot2" parent="ChestGridContainer" unique_id=20746111 instance=ExtResource("1_3n7vm")]
-layout_mode = 2
+[node name="TextureRect" type="TextureRect" parent="BookPanelContainer/Tabs Panel" unique_id=1301094512]
+layout_mode = 0
+offset_left = 994.8825
+offset_top = 66.0
+offset_right = 1057.8826
+offset_bottom = 114.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_ic2qw")
 
-[node name="Slot3" parent="ChestGridContainer" unique_id=1511566941 instance=ExtResource("1_3n7vm")]
-layout_mode = 2
+[node name="TextureRect" type="TextureRect" parent="BookPanelContainer/Tabs Panel/TextureRect" unique_id=1135091383]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.382568
+offset_top = -20.0
+offset_right = 14.617432
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_vh236")
 
-[node name="Slot4" parent="ChestGridContainer" unique_id=1782173083 instance=ExtResource("1_3n7vm")]
-layout_mode = 2
+[node name="TextureRect2" type="TextureRect" parent="BookPanelContainer/Tabs Panel" unique_id=2145777771]
+layout_mode = 0
+offset_left = 994.8825
+offset_top = 133.0
+offset_right = 1057.8826
+offset_bottom = 181.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_yyv02")
 
-[node name="Slot5" parent="ChestGridContainer" unique_id=1496782693 instance=ExtResource("1_3n7vm")]
-layout_mode = 2
+[node name="TextureRect" type="TextureRect" parent="BookPanelContainer/Tabs Panel/TextureRect2" unique_id=1078767811]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.382568
+offset_top = -20.0
+offset_right = 14.617432
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_vh236")
 
-[node name="Slot6" parent="ChestGridContainer" unique_id=1705031955 instance=ExtResource("1_3n7vm")]
-layout_mode = 2
+[node name="TextureRect3" type="TextureRect" parent="BookPanelContainer/Tabs Panel" unique_id=1071401709]
+layout_mode = 0
+offset_left = 994.8825
+offset_top = 198.0
+offset_right = 1057.8826
+offset_bottom = 246.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_gxwvi")
 
-[node name="Slot7" parent="ChestGridContainer" unique_id=1055457771 instance=ExtResource("1_3n7vm")]
-layout_mode = 2
-
-[node name="Slot8" parent="ChestGridContainer" unique_id=1144577199 instance=ExtResource("1_3n7vm")]
-layout_mode = 2
-
-[node name="Slot9" parent="ChestGridContainer" unique_id=1563547805 instance=ExtResource("1_3n7vm")]
-layout_mode = 2
-
-[node name="Slot10" parent="ChestGridContainer" unique_id=677455931 instance=ExtResource("1_3n7vm")]
-layout_mode = 2
+[node name="TextureRect" type="TextureRect" parent="BookPanelContainer/Tabs Panel/TextureRect3" unique_id=1608554302]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.382568
+offset_top = -20.0
+offset_right = 14.617432
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_vh236")

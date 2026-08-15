@@ -22,10 +22,10 @@ func _ready():
 		slot.texture = item.icon
 
 func clear_highlight():
-	$Highlight.modulate = Color.WHITE
+	$Highlight.hide()
 
 func highlight():
-	$Highlight.modulate = Color.YELLOW
+	$Highlight.show()
 
 func update_counter(amount: int):
 
