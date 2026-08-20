@@ -12,7 +12,7 @@ func setup():
 	world_size = Utils.calculate_world_size(tilemap_layer)
 
 
-func _process(delta):
+func _process(_delta):
 	_follow_player()
 	_clamp_camera()
 

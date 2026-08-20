@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://cbwyownrsae2p"]
 
 [ext_resource type="Script" uid="uid://b7cdvjlw1j8jq" path="res://Scripts/Weapons/weapon.gd" id="1_u6nre"]
-[ext_resource type="Texture2D" uid="uid://dms1bm8ybm1d5" path="res://Assets/Sprites/tools_weapons.png" id="2_yjlcg"]
+[ext_resource type="PackedScene" uid="uid://b4vox3gqa2bvk" path="res://Scenes/Weapons/slash.tscn" id="2_f5iap"]
+[ext_resource type="Texture2D" uid="uid://dms1bm8ybm1d5" path="res://Assets/_UsedInProject/WeaponsAndTools/tools_weapons.png" id="2_yjlcg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f5iap"]
 atlas = ExtResource("2_yjlcg")
@@ -23,6 +24,8 @@ animations = [{
 
 [node name="WateringCan" type="Node2D" unique_id=1887436874]
 script = ExtResource("1_u6nre")
+
+[node name="Slash" parent="." unique_id=1639061579 instance=ExtResource("2_f5iap")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=217312499]
 scale = Vector2(0.5, 0.5)

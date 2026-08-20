@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bic04trlr12ua"]
 
-[ext_resource type="Script" uid="uid://d2sh0e2tyolh2" path="res://Scripts/Weapons/Buildables/chest.gd" id="1_423jr"]
-[ext_resource type="Texture2D" uid="uid://bivhybdegtd7b" path="res://Assets/Animated/Chest/Chests.png" id="1_ew1bp"]
+[ext_resource type="Script" uid="uid://d2sh0e2tyolh2" path="res://Scripts/Crafting/Buildables/chest.gd" id="1_423jr"]
+[ext_resource type="Texture2D" uid="uid://bivhybdegtd7b" path="res://Assets/_UsedInProject/Chest/Chests.png" id="1_ew1bp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gxwvi"]
 size = Vector2(25.5, 31.578125)

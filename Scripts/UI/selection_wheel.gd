@@ -83,7 +83,7 @@ func _draw():
 				options[i].region
 			)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	queue_redraw()
 	if Engine.is_editor_hint():
 		return

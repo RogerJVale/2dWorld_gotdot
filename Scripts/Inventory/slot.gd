@@ -8,6 +8,7 @@ extends Panel
 
 @export var item: Item:
 	set(value):
+		print("Setting slot item")
 		item = value
 		if slot:
 			slot.texture = item.icon if item else null
@@ -20,6 +21,7 @@ extends Panel
 func _ready():
 	if slot and item:
 		slot.texture = item.icon
+	update_counter(0)
 
 func clear_highlight():
 	$Highlight.hide()
@@ -27,10 +29,13 @@ func clear_highlight():
 func highlight():
 	$Highlight.show()
 
-func update_counter(amount: int):
+func update_counter(_amount: int):
 
-	if amount < 2:
+	if _amount < 2:
 		$Counter.hide()
 	else:
 		$Counter.show()
-		$Counter.text = str(amount)
+		$Counter.text = str(_amount)
+
+func set_amount(value: int):
+	amount = value

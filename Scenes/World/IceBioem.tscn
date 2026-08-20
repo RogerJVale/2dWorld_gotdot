@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d12i7cp5txwb2" path="res://Scripts/Tools/tilemap_layer_creator.gd" id="1_1wvyl"]
 [ext_resource type="TileSet" uid="uid://dog44q58c1cvv" path="res://Assets/Cute_Fantasy_Free/Tiles/main_tileset.tres" id="2_25opv"]
-[ext_resource type="PackedScene" uid="uid://c66x0vxpu2kud" path="res://Scenes/World/TeleportArea.tscn" id="3_dik2e"]
-[ext_resource type="PackedScene" uid="uid://c6r6tm4ombhhf" path="res://Scenes/World/GrassBiome.tscn" id="4_siaho"]
+[ext_resource type="PackedScene" uid="uid://c66x0vxpu2kud" path="res://Scenes/World/teleporter/TeleportArea.tscn" id="3_dik2e"]
+[ext_resource type="PackedScene" path="res://Scenes/World/GrassBiome.tscn" id="4_siaho"]
 
 [node name="IceBioem" type="Node2D" unique_id=1274438438]
 script = ExtResource("1_1wvyl")

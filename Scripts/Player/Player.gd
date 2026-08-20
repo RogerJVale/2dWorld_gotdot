@@ -5,10 +5,11 @@ extends CharacterBody2D
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var mini_dialog: CanvasLayer = $"../MiniDialog"
 @onready var selection_wheel: Control = $"../CanvasLayer/SelectionWheel"
+@onready var weapon_pivot: Node2D = $WeaponPivot
 
 @export var marker: FloorMarker
 #Movement Speed
-@export var speed: float = 150.0
+@export var speed: float = 100.0
 # topdown vars
 var is_td : bool
 var is_moving:bool = false;
@@ -32,6 +33,8 @@ var target_cell: Vector2i
 
 func _ready() -> void:
 	$AnimatedSprite2D.animation_finished.connect(_on_animated_sprite_2d_animation_finished)
+	GlobalSignals.player_weapon_swing_completed.connect(_on_animated_sprite_2d_animation_finished)
+
 	call_deferred("register_player")
 
 func register_player()->void:
@@ -40,7 +43,7 @@ func register_player()->void:
 	$"Camera2D".setup()
 	world_size = Utils.calculate_world_size(GameManager.infront_layer)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	######################
 	# handle the tool input
 	######################
@@ -49,23 +52,14 @@ func _process(delta: float) -> void:
 			if GameManager.equipped_item == null:
 				mini_dialog.show_dialog("No Item Equipped", func(): mini_dialog.hide_dialog(self),self )
 				return
-			#Debug
-			#var tile_data = GameManager.getTileData(position, "Ground")
-			#print("Player: tiledata = ", tile_data)
-			#Debug end
-			if GameManager.equipped_item.name == "Axe":
-				marker.show_marker("Axe")
-			elif GameManager.equipped_item.name == "Shovel":
-				marker.show_marker("Shovel")
-				GameManager.change_tile(target_cell)
-			elif GameManager.equipped_item.name == "Watering Can":
-				marker.show_marker("WateringCan")
-			elif GameManager.equipped_item.name == "pick":
-				marker.show_marker("Pick")
+			marker.show_marker()
+			GameManager.damage_object()
+			play_attack_animation()
+
 	if GameManager.game_state == GameStates.GameState.BUILDING:
-		marker.show_marker("Chest")
+		marker.show_marker()
 		if Input.is_action_just_pressed("attack2"):
-			GlobalSignals.try_place_object.emit(marker.position, preload("res://Scripts/Inventory/Items/chest.tres"))
+			GlobalSignals.try_place_object.emit(marker.position, preload("res://Resources/Items/chest.tres"))
 
 		if Input.is_action_just_released("attack2"):
 			print("Should place chest !")
@@ -144,18 +138,19 @@ func play_animation(prefix : String, dir: Vector2) -> void:
 	elif dir.y > 0 && is_td:
 		anim.play(prefix + "_down")
 
-func play_attack_animation(prefix: String):
+func play_attack_animation():
 	is_attacking = true
-	print("playing attack animation")
 	var dir = last_direction
 	if dir.x> 0:
-		anim.play(prefix + "_right")
+		weapon_pivot.flip = false
+		weapon_pivot.start_swing(dir)
 	elif dir.x < 0:
-		anim.play(prefix + "_left")
+		weapon_pivot.flip = true
+		weapon_pivot.start_swing(dir)
 	elif dir.y < 0 && is_td:
-		anim.play(prefix + "_up")
+		weapon_pivot.start_swing(dir)
 	elif dir.y > 0 && is_td:
-		anim.play(prefix + "_down")
+		weapon_pivot.start_swing(dir)
 
 func _on_animated_sprite_2d_animation_finished():
 	if is_attacking:
@@ -166,6 +161,7 @@ func check_for_drop():
 	GameManager.check_for_drop_nearby(position)
 
 func enable_platformer_controls():
+
 	print("Seeting up for platformer")
 
 	is_td = false

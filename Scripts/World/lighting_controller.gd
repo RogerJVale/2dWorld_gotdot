@@ -3,7 +3,7 @@ extends Node
 @export var world_time: Node
 @export var overlay: ColorRect
 @export var lbl: Label
-func _process(delta):
+func _process(_delta):
 	var t := GameManager.get_day_progress()
 	lbl.text ="time " + GameManager.get_time_string()
 

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://dwp8uqal2ly6q"]
+
+[ext_resource type="Texture2D" uid="uid://bdakskv6e3q60" path="res://Assets/Items/Resource/log.png" id="1_5ghx0"]
+[ext_resource type="Script" uid="uid://bibxsjhtbuxfc" path="res://Data/item_data.gd" id="1_yi0mv"]
+
+[resource]
+script = ExtResource("1_yi0mv")
+item_id = "log"
+name = "Log"
+icon = ExtResource("1_5ghx0")
+icon_scale = Vector2(0.25, 0.25)
+quantity = 10
+item_type = 1
+metadata/_custom_type_script = "uid://bibxsjhtbuxfc"

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b7e4uqfvkssy7"]
 
 [ext_resource type="Script" uid="uid://cqes062654sb" path="res://Scripts/Inventory/slot.gd" id="1_gswik"]
-[ext_resource type="Texture2D" uid="uid://cguicrtg87a1o" path="res://Assets/UI/rpg-ui/UI assets (3x).png" id="2_gswik"]
+[ext_resource type="Texture2D" uid="uid://cguicrtg87a1o" path="res://Assets/_UsedInProject/UI/rpg-ui/UI assets (3x).png" id="2_gswik"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ic2qw"]
 
@@ -72,7 +72,9 @@ offset_left = -21.0
 offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_colors/font_color = Color(1, 0.03529412, 0.043137256, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.005639763, 0, 9.700132e-06, 1)
+theme_override_colors/font_outline_color = Color(0.99188703, 0.9368018, 0.98697144, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 25
 text = "99"
 horizontal_alignment = 1

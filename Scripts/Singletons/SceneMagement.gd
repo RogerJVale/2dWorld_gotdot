@@ -4,6 +4,7 @@ var current_biome: Node = null
 var target_teleporter : Node2D = null
 var floor_marker : FloorMarker
 var ground_layer : TileMapLayer
+
 func load_biome(biome_name: String) -> void:
 	print("Loading biome: ", biome_name)
 
@@ -47,7 +48,12 @@ func load_biome(biome_name: String) -> void:
 	target_teleporter.position_player_on_arrival(player)
 
 	# set the biome type
-	if biome_name == "ForestBiome":
+	if biome_name == "forest_biome":
 		GameManager.set_2D_Platform()
 	else:
 		GameManager.set_top_dpwn()
+
+	## this infornt layer we use for all position caculations and must be in every
+	## biome and must be the same size as all the other layer
+	GameManager.infront_layer = current_biome.get_node("InFront")
+	GameManager.base_layer = current_biome.get_node("Water")

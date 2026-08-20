@@ -1,8 +1,8 @@
 [gd_resource type="TileSet" format=3 uid="uid://dog44q58c1cvv"]
 
-[ext_resource type="Texture2D" uid="uid://b7nbe1vlh2lgy" path="res://Assets/Tilesets/TilesetFloor.png" id="1_d0h36"]
-[ext_resource type="Texture2D" uid="uid://53lu5nesdtu" path="res://Assets/Tilesets/TilesetNature.png" id="1_mokue"]
-[ext_resource type="Texture2D" uid="uid://75ypbix5euw3" path="res://Assets/Tilesets/TilesetHouse.png" id="2_mokue"]
+[ext_resource type="Texture2D" uid="uid://53lu5nesdtu" path="res://Assets/_UsedInProject/Tilesets/TilesetNature.png" id="1_mokue"]
+[ext_resource type="Texture2D" uid="uid://b7nbe1vlh2lgy" path="res://Assets/_UsedInProject/Tilesets/TilesetFloor.png" id="2_4kufc"]
+[ext_resource type="Texture2D" uid="uid://75ypbix5euw3" path="res://Assets/_UsedInProject/Tilesets/TilesetHouse.png" id="3_mokue"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4kufc"]
 polygon = PackedVector2Array(-5.9457426, -4.261115, -2.1801062, -6.936699, 0.39638233, -8, 4.0629244, -6.8376036, 8, -3.963828, 8, 8, -5.5493593, 8, -8, 2.8737755)
@@ -379,7 +379,7 @@ texture = ExtResource("1_mokue")
 13:18/0 = 0
 14:18/0 = 0
 15:18/0 = 0
-15:18/0/custom_data_0 = "rock1"
+15:18/0/custom_data_0 = "stone"
 16:18/0 = 0
 16:18/0/custom_data_0 = "rock2"
 17:18/0 = 0
@@ -414,7 +414,7 @@ texture = ExtResource("1_mokue")
 8:9/0/custom_data_0 = "tree_stump"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sny84"]
-texture = ExtResource("1_d0h36")
+texture = ExtResource("2_4kufc")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 1
@@ -1927,7 +1927,7 @@ polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4kufc"]
-texture = ExtResource("2_mokue")
+texture = ExtResource("3_mokue")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dy5u32gsl8o7k"]
+
+[ext_resource type="Script" uid="uid://43i0kjm8n3e4" path="res://Scripts/UI/recipe_ui.gd" id="1_xx7bq"]
+[ext_resource type="Resource" uid="uid://vb2pl5w7o4d6" path="res://Resources/recipes/stone_pick.tres" id="2_02cky"]
+[ext_resource type="PackedScene" uid="uid://b7e4uqfvkssy7" path="res://Scenes/UI/slot.tscn" id="2_ld7sn"]
+[ext_resource type="Texture2D" uid="uid://bnchpekbbyhn" path="res://Assets/_UsedInProject/UI/Theme/Theme Wood/arrow_right.png" id="3_02cky"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gxwvi"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="RecipeUI" type="PanelContainer" unique_id=1588274661]
+offset_right = 440.0
+offset_bottom = 85.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gxwvi")
+script = ExtResource("1_xx7bq")
+recipe = ExtResource("2_02cky")
+
+[node name="RecipeItems" type="GridContainer" parent="." unique_id=184646472]
+custom_minimum_size = Vector2(412, 0)
+custom_maximum_size = Vector2(412, -1)
+propagate_maximum_size = false
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.895, 0.895)
+columns = 6
+
+[node name="Slot" parent="RecipeItems" unique_id=1416052683 instance=ExtResource("2_ld7sn")]
+layout_mode = 2
+
+[node name="Slot2" parent="RecipeItems" unique_id=1950803271 instance=ExtResource("2_ld7sn")]
+layout_mode = 2
+
+[node name="Slot3" parent="RecipeItems" unique_id=294097895 instance=ExtResource("2_ld7sn")]
+layout_mode = 2
+
+[node name="Slot4" parent="RecipeItems" unique_id=1206964771 instance=ExtResource("2_ld7sn")]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="RecipeItems" unique_id=583087615]
+custom_minimum_size = Vector2(20, 20)
+custom_maximum_size = Vector2(20, 20)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(-0.14, 1.425)
+texture = ExtResource("3_02cky")
+
+[node name="Slot5" parent="RecipeItems" unique_id=101503774 instance=ExtResource("2_ld7sn")]
+layout_mode = 2
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1052859175]
+visible = false
+position = Vector2(5, 61)
+points = PackedVector2Array(-2, -1, 427, -34)
+default_color = Color(1, 0, 0, 1)

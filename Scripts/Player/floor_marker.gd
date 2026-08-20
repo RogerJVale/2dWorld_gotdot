@@ -13,17 +13,18 @@ func _ready() -> void:
 func set_tilemaplayer(tml : TileMapLayer):
 
 	tile_layer = tml
-func show_marker(weapon_type: String):
+func show_marker():
 
 	var snapped_pos: Vector2 = get_marker_position()
 	player.target_cell = snapped_pos
+
 	#Move marker
 	global_position = snapped_pos
 	visible = true
 	if GameManager.game_state == GameStates.GameState.BUILDING:
 		$Sprite2D/Chest.show()
 		return
-	show_tool_action(weapon_type, snapped_pos)
+	#show_tool_action(weapon_type, snapped_pos)
 
 func _hide_marker():
 		hide()
@@ -52,29 +53,29 @@ func get_marker_cell() -> Vector2i:
 	return  cell + dir
 
 
-func show_tool_action(weapon_type: String, snapped_pos: Vector2):
-
-	var data: TileTypes.Type = GameManager.getTileData(snapped_pos, "Ground")
-
-
-	if weapon_type == "Axe" and GameManager.getTileData(snapped_pos,"InFront") == TileTypes.Type.tree_stump:
-		$Sprite2D/AxeSwing.visible = true;
-		$Sprite2D/AxeSwing.play_anim()
-		player.play_attack_animation("2h_overswing")
-		GameManager.damage_object(get_marker_cell(), 25, TileTypes.Type.tree_stump)
-	elif weapon_type == "Shovel" and data == TileTypes.Type.grass:
-		$Sprite2D/Shovel.visible = true;
-		$Sprite2D/Shovel.play_anim()
-	elif weapon_type == "WateringCan" and data == TileTypes.Type.dirt:
-		$Sprite2D/WateringCan.visible = true;
-		$Sprite2D/WateringCan.play_anim()
-	elif weapon_type == "Pick" and GameManager.getTileData(snapped_pos,"InFront") == TileTypes.Type.stone:
-		$Sprite2D/Pick.visible = true;
-		$Sprite2D/Pick.play_anim()
-		player.play_attack_animation("2h_overswing")
-		GameManager.damage_object(get_marker_cell(), 25, TileTypes.Type.stone)
-
-	else:
-		## faile to do the correct task
-		await get_tree().create_timer(0.5).timeout
-		visible = false
+#func show_tool_action(weapon_type: String, snapped_pos: Vector2):
+#
+	#var data: TileTypes.Type = GameManager.getTileData(snapped_pos, "Ground")
+#
+#
+	#if weapon_type == "Axe" and GameManager.getTileData(snapped_pos,"InFront") == TileTypes.Type.tree_stump:
+		#$Sprite2D/AxeSwing.visible = true;
+		#$Sprite2D/AxeSwing.play_anim()
+#
+		#GameManager.damage_object(get_marker_cell(), 25, TileTypes.Type.tree_stump)
+	#elif weapon_type == "Shovel" and data == TileTypes.Type.grass:
+		#$Sprite2D/Shovel.visible = true;
+		#$Sprite2D/Shovel.play_anim()
+	#elif weapon_type == "WateringCan" and data == TileTypes.Type.dirt:
+		#$Sprite2D/WateringCan.visible = true;
+		#$Sprite2D/WateringCan.play_anim()
+	#elif weapon_type == "Pick" and GameManager.getTileData(snapped_pos,"InFront") == TileTypes.Type.stone:
+		#$Sprite2D/Pick.visible = true;
+		#$Sprite2D/Pick.play_anim()
+#
+		#GameManager.damage_object(get_marker_cell(), 25, TileTypes.Type.stone)
+#
+	#else:
+		### faile to do the correct task
+		#await get_tree().create_timer(0.5).timeout
+		#visible = false

@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://rjgahp2exsm0"]
 
 [ext_resource type="Script" uid="uid://b7cdvjlw1j8jq" path="res://Scripts/Weapons/weapon.gd" id="1_bb1t4"]
-[ext_resource type="Texture2D" uid="uid://dms1bm8ybm1d5" path="res://Assets/Sprites/tools_weapons.png" id="2_bb1t4"]
+[ext_resource type="Texture2D" uid="uid://dms1bm8ybm1d5" path="res://Assets/_UsedInProject/WeaponsAndTools/tools_weapons.png" id="2_bb1t4"]
+[ext_resource type="PackedScene" uid="uid://b4vox3gqa2bvk" path="res://Scenes/Weapons/slash.tscn" id="2_bm51t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bm51t"]
 atlas = ExtResource("2_bb1t4")
@@ -24,6 +25,8 @@ animations = [{
 [node name="AxeSwing" type="Node2D" unique_id=2081854247]
 script = ExtResource("1_bb1t4")
 animation_name = "axe_swing"
+
+[node name="Slash" parent="." unique_id=1639061579 instance=ExtResource("2_bm51t")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1272927632]
 scale = Vector2(0.5, 0.5)

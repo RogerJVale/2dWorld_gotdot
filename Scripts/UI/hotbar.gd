@@ -90,6 +90,7 @@ func swap_slots(a: int, b: int):
 func update_current_item():
 	selected_item = slots[current_slot].item
 	highlight_slot(current_slot)
+	GlobalSignals.player_swapped_weapon.emit(selected_item)
 	GameManager.equipped_item = selected_item
 
 	#if selected_item:

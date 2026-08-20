@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" format=3 uid="uid://i520rnm2xk5t"]
 
-[ext_resource type="Texture2D" uid="uid://u0hh2ywaox8w" path="res://Assets/Platformer/environment/tileset.png" id="1_kx5dm"]
+[ext_resource type="Texture2D" uid="uid://u0hh2ywaox8w" path="res://Assets/_UsedInProject/Tilesets/PlatformerTileset.png" id="1_kx5dm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cw0yy"]
 texture = ExtResource("1_kx5dm")
@@ -141,5 +141,5 @@ texture = ExtResource("1_kx5dm")
 2:8/0 = 0
 
 [resource]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 2
 sources/0 = SubResource("TileSetAtlasSource_cw0yy")

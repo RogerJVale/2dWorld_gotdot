@@ -10,6 +10,7 @@ extends Node2D
 @export var start_scene : PackedScene
 
 #refrences
+var base_layer: TileMapLayer
 var infront_layer: TileMapLayer
 var floor_marker: FloorMarker
 var mini_dialog: MiniDialog
@@ -22,7 +23,12 @@ var day := 0
 var minutes : float = 0
 
 
-var equipped_item: Item
+var equipped_item: Item:
+	set(value):
+		Utils.print_caller()
+		if value != null:
+			print(value.name)
+		equipped_item = value
 var world_size
 
 
@@ -58,17 +64,18 @@ func register_player(player: CharacterBody2D):
 	_player = player
 	SceneMagement.load_biome("grass_biome");
 
-	infront_layer = SceneMagement.current_biome.get_node("InFront")
-	world_size = _calculate_world_size()
 
+	world_size = Utils.calculate_world_size(base_layer)
+	#TODO if we are to change world this should be updated as we only have one save file
 	load_building_data()
+
 func set_2D_Platform():
 	_player.enable_platformer_controls()
 
 func set_top_dpwn():
 	_player.enable_topdownControls()
 
-func handle_tile_type(type: String):
+func handle_tile_type(_type: String):
 	pass
 
 ##
@@ -79,13 +86,14 @@ func getTileData(pos:Vector2, layer: String)->TileTypes.Type:
 		var tilemap: TileMapLayer = SceneMagement.current_biome.get_node(layer);
 		if not tilemap:
 			print("Did not find tile map")
+			return  TileTypes.Type.EMPTY
 
 		var cell := tilemap.local_to_map(pos)
 		var data: TileData = tilemap.get_cell_tile_data(cell)
 
 		if data:
 			var tile_type_str: String = data.get_custom_data("type")
-			return TileTypes.tile_type_from_string(tile_type_str)
+			return TileTypes.tile_type_from_string(tile_type_str) as TileTypes.Type
 	return TileTypes.Type.EMPTY
 
 func get_tile_data_at_marker_position(layer_name: String)->TileTypes.Type:
@@ -209,10 +217,10 @@ func check_for_drop_nearby(player_pos: Vector2):
 		if player_pos.distance_to(drop_pos) < 20:
 			mini_dialog.show_dialog("E to pickup",
 							func():
-							mini_dialog.hide_dialog(self)
+							mini_dialog.hide_dialog(_player)
 							pickup_drop(dropped_items.get(drop_pos))
 							remove_drop(drop_pos),
-							self
+							_player
 							)
 			return
 	mini_dialog.hide_dialog(self)
@@ -240,7 +248,9 @@ var env_bar_active: bool = false
 var env_bar_cell := Vector2i()
 var enviorment_health_bar: ProgressBar
 
+## check if there is a object at the current cell we are on(this will be the floor marker)
 func check_enviorment():
+
 	var type: TileTypes.Type = get_tile_data_at_marker_position("InFront")
 	var current_cell = floor_marker.get_marker_cell()
 
@@ -270,10 +280,26 @@ func check_enviorment():
 		enviorment_health_bar.queue_free()
 		enviorment_health_bar = null
 		env_bar_active = false
-
-func damage_object(cell: Vector2i, amount: int, type: TileTypes.Type):
+## damage object if we are attacking it
+func damage_object():
 	if !enviorment_health_bar:
 		return
+	var cell
+	var amount
+	var type
+	## Handle damage object at marker position
+	var snapped_pos: Vector2 = floor_marker.get_marker_position()
+	if equipped_item.name == "Axe" and getTileData(snapped_pos,"InFront") == TileTypes.Type.tree_stump:
+		cell = floor_marker.get_marker_cell()
+		amount = 25
+		type = TileTypes.Type.tree_stump
+	elif equipped_item.name == "Pick" and getTileData(snapped_pos,"InFront") == TileTypes.Type.stone:
+		cell = floor_marker.get_marker_cell()
+		amount = 25
+		type = TileTypes.Type.stone
+	else:
+		return
+
 
 	var data
 	if type == TileTypes.Type.stone && stones.has(cell):
@@ -293,7 +319,7 @@ func damage_object(cell: Vector2i, amount: int, type: TileTypes.Type):
 	# Destroy object if dead
 	if data.health <= 0:
 		destroy_object(cell, type)
-
+## object has no health so we need to destroy it and spawn any resource
 func destroy_object(cell: Vector2i, type: TileTypes.Type):
 	infront_layer.set_cell(cell, -1)  # remove tile
 
@@ -303,16 +329,18 @@ func destroy_object(cell: Vector2i, type: TileTypes.Type):
 
 		TileTypes.Type.stone:
 			stones.erase(cell)
+			var item : Item = load("res://Resources/Items/stone.tres")
+			store_drop(item, 1)
 
 		TileTypes.Type.tree_stump:
 			trees[cell]["sprite"].queue_free()
-			var item : Item = load("res://Scripts/Inventory/Items/log.tres")
+			var item : Item = load("res://Resources/Items/log.tres")
 			store_drop(item, 1)
 
 	enviorment_health_bar.queue_free()
 	enviorment_health_bar = null
 	env_bar_active = false
-
+## display the heath e bar acove an object on the given cell
 func show_enviorment_health_bar(cell: Vector2i, health: float, type: TileTypes.Type):
 	var data
 
@@ -363,9 +391,9 @@ func _on_try_place_object(pos: Vector2, item: Item):
 	obj.global_position = pos
 	get_tree().current_scene.add_child(obj)
 
-	var inventory_id = null
+	#var inventory_id = null
 	var cell = infront_layer.local_to_map(pos)
-	var object_id = item.item_id
+	#var object_id = item.item_id
 
 
 	var data := PlacedObjectData.new()
@@ -422,8 +450,3 @@ func get_data_for_type(cell: Vector2i, type: TileTypes.Type):
 		return trees[cell]
 	else:
 		return
-func _calculate_world_size():
-	var used = infront_layer.get_used_rect()
-	var tile_size = infront_layer.tile_set.tile_size
-	world_size = used.size * tile_size
-	GameManager.world_size = world_size

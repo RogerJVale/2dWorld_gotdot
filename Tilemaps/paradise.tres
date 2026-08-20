@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" format=3 uid="uid://cxm2yankxjvy4"]
 
-[ext_resource type="Texture2D" uid="uid://by13c00spckfa" path="res://Assets/Tilesets/AutoGen_test/Paradise_Asset_Pack_FREE/TileSets/terrains/Terrains_Dirt_Grass_Sand_Cliffs.png" id="1_eh5qe"]
+[ext_resource type="Texture2D" uid="uid://by13c00spckfa" path="res://Assets/_UsedInProject/Tilesets/Terrains_Dirt_Grass_Sand_Cliffs.png" id="1_eh5qe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gfm2o"]
 texture = ExtResource("1_eh5qe")

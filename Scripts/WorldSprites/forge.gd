@@ -1,5 +1,7 @@
 extends Area2D
 
+@export var avaliable_recipes: Array[Recipe]
+
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
@@ -10,9 +12,9 @@ func _on_body_entered(body: Node2D) -> void:
 		GlobalSignals.show_mini_dialog.emit(
 		"Press E to Craft",
 		func():
-			GlobalSignals.open_crafting_menu.emit(),
+			GlobalSignals.open_crafting_menu.emit(avaliable_recipes),
 		self
 			)
 
-func _on_body_exited(body: Node2D) -> void:
+func _on_body_exited(_body: Node2D) -> void:
 	GlobalSignals.hide_mini_dialog.emit(self)

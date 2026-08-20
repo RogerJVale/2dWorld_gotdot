@@ -36,6 +36,8 @@ func save_all_tiles_as_res(biomeName: String):
 
 func load_all_tiles_from_res(biomeName: String):
 	if not FileAccess.file_exists("user://" + biomeName + ".tres"):
+		register_resource_tiles()
+		spawn_trees_from_stumps()
 		return
 
 	#get the data from the resousce file
@@ -46,11 +48,15 @@ func load_all_tiles_from_res(biomeName: String):
 	for tile in tile_data:
 		GameManager.change_map_cell_no_save(tile.cell)
 
-
+	# TODO need to check this
+	# not sure if this will destroy ant data that had been saved
 
 	register_resource_tiles()
-
 	spawn_trees_from_stumps()
+
+
+
+
 
 
 
@@ -60,12 +66,12 @@ func spawn_trees_from_stumps() -> void:
 
 	# Loop all used cells on this layer
 	for cell in tilemap_layer.get_used_cells():
-		var tile_data : TileData = tilemap_layer.get_cell_tile_data(cell)
-		if tile_data == null:
+		var tilemap_data = tilemap_layer.get_cell_tile_data(cell)
+		if tilemap_data == null:
 			continue
 
 		# Assuming you set a custom data key "tree_stump" = true on that tile
-		var tile_type: String = tile_data.get_custom_data("type")
+		var tile_type: String = tilemap_data.get_custom_data("type")
 		if tile_type == "tree_stump":
 			# Tile center in local/world space
 			var pos = tilemap_layer.map_to_local(cell)
@@ -86,13 +92,13 @@ func register_resource_tiles():
 	var tilemap_layer = $"../InFront"
 	# Loop all used cells on this layer
 	for cell in tilemap_layer.get_used_cells():
-		var tile_data : TileData = tilemap_layer.get_cell_tile_data(cell)
+		var tilemap_data : TileData = tilemap_layer.get_cell_tile_data(cell)
 		if tile_data == null:
 			continue
 
 		# Assuming you set a custom data key "tree_stump" = true on that tile
-		var tile_type: String = tile_data.get_custom_data("type")
-		var tile_type_enum = TileTypes.tile_type_from_string(tile_type)
+		var tile_type: String = tilemap_data.get_custom_data("type")
+		#var tile_type_enum = TileTypes.tile_type_from_string(tile_type)
 		match tile_type:
 			"tree_stump":
 				GameManager.trees[cell] = {

@@ -46,7 +46,7 @@ var tree_stump_atlas_pos : Vector2i = Vector2i(8,9)
 @export var tree_stump_max_spawn: int = 50
 
 var stone_id : int = 0
-var stone_atlas_pos : Vector2i = Vector2i(17,17)
+var stone_atlas_pos : Vector2i = Vector2i(15,18)
 @export var stone_max_spawn: int = 50
 
 func _create_tilemap_layers():

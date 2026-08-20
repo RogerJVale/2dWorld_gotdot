@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://bq0ojren2f3il"]
 
 [ext_resource type="Script" uid="uid://dv0y08yytjqtg" path="res://Scripts/WorldSprites/forge.gd" id="1_v4g6l"]
-[ext_resource type="Texture2D" uid="uid://75ypbix5euw3" path="res://Assets/Tilesets/TilesetHouse.png" id="2_ev8hb"]
+[ext_resource type="Texture2D" uid="uid://75ypbix5euw3" path="res://Assets/_UsedInProject/Tilesets/TilesetHouse.png" id="2_ev8hb"]
+[ext_resource type="Script" uid="uid://djdsv7mswmovt" path="res://Data/recipe_data.gd" id="2_iieyd"]
+[ext_resource type="Resource" uid="uid://vb2pl5w7o4d6" path="res://Resources/recipes/stone_pick.tres" id="3_o6lbg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j4bll"]
 atlas = ExtResource("2_ev8hb")
@@ -10,8 +12,12 @@ region = Rect2(496.92596, 198.09537, 31.074036, 41.454956)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gxwvi"]
 size = Vector2(27, 29)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j4bll"]
+size = Vector2(27, 39)
+
 [node name="Forge" type="Area2D" unique_id=1175310638]
 script = ExtResource("1_v4g6l")
+avaliable_recipes = Array[ExtResource("2_iieyd")]([ExtResource("3_o6lbg")])
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=381936289]
 texture = SubResource("AtlasTexture_j4bll")
@@ -19,3 +25,11 @@ texture = SubResource("AtlasTexture_j4bll")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=222986731]
 position = Vector2(-0.5, 19.5)
 shape = SubResource("RectangleShape2D_gxwvi")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1841600134]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=78223048]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_j4bll")
+debug_color = Color(0.9222451, 0.2084791, 0.47244275, 0.41960785)

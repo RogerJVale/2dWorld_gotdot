@@ -1,60 +1,49 @@
 [gd_scene format=3 uid="uid://cwewju407gjfc"]
 
 [ext_resource type="Script" uid="uid://4y5pxphlvesb" path="res://Scripts/UI/crafting.gd" id="1_6pl77"]
-[ext_resource type="PackedScene" uid="uid://b7e4uqfvkssy7" path="res://Scenes/UI/slot.tscn" id="2_olq50"]
+[ext_resource type="Script" uid="uid://cy10t0uemircx" path="res://Scripts/UI/scroll_container.gd" id="2_6pp1w"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_olq50"]
 
 [node name="Crafting" type="Node2D" unique_id=104021827]
+visible = false
 script = ExtResource("1_6pl77")
 
-[node name="Panel" type="Panel" parent="." unique_id=870952211]
-custom_minimum_size = Vector2(400, 360)
-custom_maximum_size = Vector2(400, 360)
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=672114839]
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="VBoxContainer" unique_id=870952211]
+custom_minimum_size = Vector2(400, 360)
+custom_maximum_size = Vector2(400, 360)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_olq50")
 
-[node name="HSplitContainer" type="VSplitContainer" parent="Panel" unique_id=1750182933]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-split_offsets = PackedInt32Array(50, 298, 0, 0)
-split_offset = 50
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Panel" unique_id=1349795355]
+layout_mode = 0
+offset_right = 423.0
+offset_bottom = 338.0
+draw_focus_border = true
+script = ExtResource("2_6pp1w")
 
-[node name="Panel" type="Panel" parent="Panel/HSplitContainer" unique_id=60074715]
-custom_minimum_size = Vector2(0, 50)
+[node name="RecipeHolderVboxContainer" type="VBoxContainer" parent="VBoxContainer/Panel/ScrollContainer" unique_id=367828995]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(-0.005, 0)
+
+[node name="Panel2" type="Panel" parent="VBoxContainer" unique_id=416761810]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="Panel/HSplitContainer" unique_id=1624935997]
-custom_minimum_size = Vector2(340, 0)
-custom_maximum_size = Vector2(340, -1)
-layout_mode = 2
-columns = 4
+[node name="Button" type="Button" parent="VBoxContainer/Panel2" unique_id=898760778]
+layout_mode = 0
+offset_left = 58.0
+offset_right = 191.0
+offset_bottom = 31.0
+text = "Press A to Clear "
 
-[node name="Slot" parent="Panel/HSplitContainer/GridContainer" unique_id=1416052683 instance=ExtResource("2_olq50")]
-layout_mode = 2
-
-[node name="Slot2" parent="Panel/HSplitContainer/GridContainer" unique_id=2042187955 instance=ExtResource("2_olq50")]
-layout_mode = 2
-
-[node name="Slot3" parent="Panel/HSplitContainer/GridContainer" unique_id=932680847 instance=ExtResource("2_olq50")]
-layout_mode = 2
-
-[node name="Slot4" parent="Panel/HSplitContainer/GridContainer" unique_id=285103680 instance=ExtResource("2_olq50")]
-layout_mode = 2
-
-[node name="Panel2" type="Panel" parent="Panel/HSplitContainer" unique_id=31258810]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-
-[node name="Panel3" type="Panel" parent="Panel/HSplitContainer" unique_id=260302161]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-
-[node name="Panel4" type="Panel" parent="Panel/HSplitContainer" unique_id=200793749]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
+[node name="Button2" type="Button" parent="VBoxContainer/Panel2" unique_id=1294341030]
+layout_mode = 0
+offset_left = 250.0
+offset_right = 383.0
+offset_bottom = 31.0
+text = "Press E to Craft"

@@ -9,6 +9,10 @@ func hide_all_children(node: Node):
 		child.visible = false
 		hide_all_children(child)
 
+func remove_all_children(node: Node):
+	for child in node.get_children():
+		child.queue_free()
+
 func print_caller():
 	var stack = get_stack()
 	if stack.size() > 1:

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dah1aqqyfwk58"]
 
 [ext_resource type="Shader" uid="uid://ckis774dxkj7c" path="res://Scenes/WorldSprites/tree_sway.tres" id="1_owmj8"]
-[ext_resource type="Texture2D" uid="uid://cvvsaehwlp2iv" path="res://Assets/Cute_Fantasy_Free/Outdoor decoration/Oak_Tree_Small.png" id="1_xm5ct"]
+[ext_resource type="Texture2D" uid="uid://cvvsaehwlp2iv" path="res://Assets/_UsedInProject/Oak_Tree_Small.png" id="1_xm5ct"]
 [ext_resource type="Script" uid="uid://cen3lbgdupwgg" path="res://Scripts/WorldSprites/small_oak_tree.gd" id="3_afqwu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rw4pd"]

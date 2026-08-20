@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cwewju407gjfc"]
+
+[ext_resource type="Script" uid="uid://4y5pxphlvesb" path="res://Scripts/UI/crafting.gd" id="1_6pl77"]
+[ext_resource type="Script" uid="uid://cy10t0uemircx" path="res://Scripts/UI/scroll_container.gd" id="2_6pp1w"]
+[ext_resource type="PackedScene" uid="uid://dy5u32gsl8o7k" path="res://Scenes/UI/recipe_holder.tscn" id="3_pfc4g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_olq50"]
+
+[node name="Crafting" type="Node2D" unique_id=104021827]
+script = ExtResource("1_6pl77")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=672114839]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="VBoxContainer" unique_id=870952211]
+custom_minimum_size = Vector2(400, 360)
+custom_maximum_size = Vector2(400, 360)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_olq50")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/Panel" unique_id=1349795355]
+layout_mode = 0
+offset_right = 423.0
+offset_bottom = 338.0
+draw_focus_border = true
+script = ExtResource("2_6pp1w")
+
+[node name="VboxContainer" type="VBoxContainer" parent="VBoxContainer/Panel/ScrollContainer" unique_id=367828995]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(-0.005, 0)
+
+[node name="RecipeHolder" parent="VBoxContainer/Panel/ScrollContainer/VboxContainer" unique_id=1588274661 instance=ExtResource("3_pfc4g")]
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="VBoxContainer" unique_id=416761810]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/Panel2" unique_id=898760778]
+layout_mode = 0
+offset_left = 58.0
+offset_right = 191.0
+offset_bottom = 31.0
+text = "Press A to Clear "
+
+[node name="Button2" type="Button" parent="VBoxContainer/Panel2" unique_id=1294341030]
+layout_mode = 0
+offset_left = 250.0
+offset_right = 383.0
+offset_bottom = 31.0
+text = "Press E to Craft"
+
+[editable path="VBoxContainer/Panel/ScrollContainer/VboxContainer/RecipeHolder"]

@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://cdsmmjoffa35g"]
 
-[ext_resource type="Texture2D" uid="uid://dch66coa8qf5t" path="res://Assets/Sprites/floorMarker.png" id="1_5lyrj"]
+[ext_resource type="Texture2D" uid="uid://dch66coa8qf5t" path="res://Assets/_UsedInProject/floorMarker.png" id="1_5lyrj"]
 [ext_resource type="Script" uid="uid://d1pkpxag7rswb" path="res://Scripts/Player/floor_marker.gd" id="1_48x2i"]
 [ext_resource type="PackedScene" uid="uid://cbwyownrsae2p" path="res://Scenes/Weapons/watering_can.tscn" id="3_3b1dd"]
 [ext_resource type="PackedScene" uid="uid://rjgahp2exsm0" path="res://Scenes/Weapons/axe_swing.tscn" id="3_45rsx"]
 [ext_resource type="PackedScene" uid="uid://dpkbuy8sxmoux" path="res://Scenes/Weapons/pick.tscn" id="3_yb0ls"]
 [ext_resource type="PackedScene" uid="uid://bbtl034ebb2v5" path="res://Scenes/Weapons/shovel.tscn" id="4_isuu6"]
-[ext_resource type="Texture2D" uid="uid://bivhybdegtd7b" path="res://Assets/Animated/Chest/Chests.png" id="7_cbju0"]
+[ext_resource type="Texture2D" uid="uid://bivhybdegtd7b" path="res://Assets/_UsedInProject/Chest/Chests.png" id="7_cbju0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gxwvi"]
 atlas = ExtResource("7_cbju0")

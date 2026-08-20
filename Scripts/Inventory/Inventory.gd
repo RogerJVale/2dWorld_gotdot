@@ -26,10 +26,10 @@ var active_current_slot: int
 #debug
 @export var test_item: Item
 
-@onready var inventory_grid_container: GridContainer = $BookPanelContainer/HSplitContainer/LeftPagePanel/InventoryGridContainer
-@onready var chest_grid_container: GridContainer = $BookPanelContainer/HSplitContainer/RightPagePanel/ChestGridContainer
+@onready var inventory_grid_container: GridContainer = $BookPanelContainer/HSplitContainer/LeftPagePanel/VBoxContainer/InventoryGridContainer
+@onready var chest_grid_container: GridContainer = $BookPanelContainer/HSplitContainer/RightPagePanel/VBoxContainer/ChestGridContainer
 @onready var book_panel_container: PanelContainer = $BookPanelContainer
-@onready var crafting: Node2D = $BookPanelContainer/HSplitContainer/RightPagePanel/Crafting
+@onready var crafting: Node2D = $BookPanelContainer/HSplitContainer/RightPagePanel/VBoxContainer/Crafting
 
 func _ready():
 	GlobalSignals.open_chest_inventory.connect(_on_open_chest)
@@ -39,13 +39,18 @@ func _ready():
 	for child: Slot in inventory_grid_container.get_children():
 		slots.append(child)
 
+	print("slots size " , slots.size())
+	items.resize(slots.size())
 	load_inventory(inventory_id, items)
 	refresh_ui()
 
 	# >>> ADDED <<<
 	set_inventory_active()
+	print("items size = ", items.size() )
 
-func _process(delta: float) -> void:
+	#add_items_to_inventory()
+
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		toggle_inventory()
 
@@ -63,7 +68,7 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("nav_down"):
 
 			# Chest is open → swap between inventory and chest
-			if $PanelContainer/HSplitContainer/Panel2/ChestGridContainer.visible:
+			if chest_grid_container.visible:
 
 				if chest_active:
 					# Chest → Inventory
@@ -84,7 +89,7 @@ func _process(delta: float) -> void:
 			if chest_active:
 
 				move_selected_item_from_chest_to_inventory()
-			elif $PanelContainer/HSplitContainer/Panel2/ChestGridContainer.visible:
+			elif chest_grid_container.visible:
 
 				move_selected_item_to_chest()
 			else:
@@ -101,7 +106,7 @@ func _process(delta: float) -> void:
 ## Usage Funcs
 #########################
 func add_item(new_item: Item, amount: int = 0) -> bool:
-	print("Adding ", amount, " ", new_item.name, " to inventory")
+
 
 	var qty: int
 	if amount == 0:
@@ -116,13 +121,14 @@ func add_item(new_item: Item, amount: int = 0) -> bool:
 				data["amount"] += qty
 				refresh_slot(i)
 				print("Stacked item ", qty)
+				print("Adding ", amount, " ", new_item.name, " to inventory")
 				return true
 
 	for i in items.size():
 		if items[i] == null:
 			items[i] = {"item": new_item, "amount": qty}
 			refresh_slot(i)
-			print("put item into new slot")
+			#print("put item into new slot")
 			return true
 
 	return false
@@ -146,6 +152,10 @@ func add_stack(data: Dictionary) -> bool:
 			return true
 
 	return false
+
+func remove_item_to_crafting(index:int):
+
+	pass
 
 func remove_item_to_hotbar(index: int):
 	var data = items[index]
@@ -196,6 +206,14 @@ func refresh_slot(i: int):
 		slots[i].item = data["item"]
 		slots[i].amount = data["amount"]
 
+func get_amount(item:Item)->int:
+	for entry in items:
+		# handle a empty slot
+		if entry == null:
+			continue
+		if entry.item == item:
+			return entry.amount
+	return 0
 #region Saving
 func save_inventory(id, target_array):
 	var save := Resource.new()
@@ -214,12 +232,14 @@ func load_inventory(id, target_array):
 
 	var save := load(path)
 	var loaded_items = save.get_meta("items")
+	if loaded_items.size() > 0:
+		target_array.clear()
+		for item in loaded_items:
+			target_array.append(item)
 
-	target_array.clear()
-	for item in loaded_items:
-		target_array.append(item)
-
-	print("Inventory loaded")
+		print("Inventory loaded")
+	else:
+		print("No data in inventory")
 
 #endregion
 
@@ -340,9 +360,11 @@ func drop_chest_item():
 ###########################
 ## Crafting
 ###########################
-func _on_open_crafting_menu():
+func _on_open_crafting_menu(avaliable_recipes:Array[Recipe]):
 	crafting.show()
+	crafting.build_avaliable_crafting_list(avaliable_recipes)
 	toggle_inventory()
+	GameManager.game_state = GameStates.GameState.CRAFTING
 
 ############################
 ## Navigation
@@ -380,14 +402,15 @@ func toggle_inventory():
 		if crafting.visible:
 			crafting.hide()
 	else:
+		book_panel_container.show()
 		inventory_grid_container.visible = true
 		set_inventory_active()
 		GameManager.game_state = GameStates.GameState.INVENTORY
 
 	book_panel_container.visible = inventory_grid_container.visible
 func add_items_to_inventory():
-	add_item(preload("res://Scripts/Inventory/Items/axe.tres"))
-	add_item(preload("res://Scripts/Inventory/Items/pick.tres"))
-	add_item(preload("res://Scripts/Inventory/Items/shovel.tres"))
-	add_item(preload("res://Scripts/Inventory/Items/watering_can.tres"))
-	add_item(preload("res://Scripts/Inventory/Items/log.tres"))
+	add_item(preload("res://Resources/Items/axe.tres"))
+	add_item(preload("res://Resources/Items/pick.tres"))
+	add_item(preload("res://Resources/Items/shovel.tres"))
+	add_item(preload("res://Resources/Items/watering_can.tres"))
+	add_item(preload("res://Resources//Items/log.tres"))

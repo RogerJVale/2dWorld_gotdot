@@ -10,6 +10,7 @@ class_name Item
 @export var prefab: PackedScene
 @export var item_type: ItemType
 @export var value: int = 1
+@export var texture: Texture2D
 
 
 

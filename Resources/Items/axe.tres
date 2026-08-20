@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://bnrjyrhcckbft"]
+
+[ext_resource type="Texture2D" uid="uid://dms1bm8ybm1d5" path="res://Assets/_UsedInProject/WeaponsAndTools/tools_weapons.png" id="1_4es6u"]
+[ext_resource type="Script" uid="uid://bibxsjhtbuxfc" path="res://Data/item_data.gd" id="2_huh87"]
+[ext_resource type="Texture2D" uid="uid://ckrttn74kvc5t" path="res://Assets/_UsedInProject/WeaponsAndTools/axe.png" id="3_360q0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_geuwq"]
+atlas = ExtResource("1_4es6u")
+region = Rect2(0, 0, 30.76883, 30.011395)
+
+[resource]
+script = ExtResource("2_huh87")
+item_id = "axe"
+name = "Axe"
+icon = SubResource("AtlasTexture_geuwq")
+max_stack = 1
+texture = ExtResource("3_360q0")
+metadata/_custom_type_script = "uid://bibxsjhtbuxfc"
